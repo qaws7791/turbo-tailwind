@@ -126,7 +126,7 @@ $ pnpm run test:cov
 - **GET** `/articles`: 게시글 목록 조회 (필터링 / 페이지네이션)
 - **GET** `/articles/:id`: 특정 게시글 상세 조회
 - **PATCH** `/articles/:id`: 게시글 수정 (관리자)
-- **DELETE** `/articles/:id`: 게시글 삭제 (관리자)
+- **DELETE** `/articlesd/:id`: 게시글 삭제 (관리자)
 
 ------
 

@@ -16,6 +16,8 @@ import { ArticlesController } from './articles/articles.controller';
 import { ArticlesModule } from './articles/articles.module';
 import { Article } from './articles/entities/article.entity';
 import { CommonModule } from './common/common.module';
+import { EventsModule } from './events/events.module';
+import { Event, EventOperationTime } from './events/entities/event.entity';
 
 @Module({
   imports: [
@@ -26,7 +28,7 @@ import { CommonModule } from './common/common.module';
       ssl: {
         rejectUnauthorized: false,
       },
-      entities: [User, Board, Article],
+      entities: [User, Board, Article, Event, EventOperationTime],
       synchronize: configuration().NODE_ENV === 'dev',
       logging: true,
     }),
@@ -35,6 +37,7 @@ import { CommonModule } from './common/common.module';
     BoardsModule,
     ArticlesModule,
     CommonModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [
