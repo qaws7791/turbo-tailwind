@@ -45,7 +45,7 @@ export class Event {
 
   // 이벤트당 예약 인원
   @Column({ type: 'int' })
-  Stock: number;
+  stock: number;
 
   // 이벤트 주의사항
   @Column({ length: 5000, default: '' })
@@ -54,6 +54,10 @@ export class Event {
   // 예약 받을 시간 단위(분)
   @Column({ type: 'int' })
   unitBookingTime: 30 | 60;
+
+  // 이벤트 운영 시간이 동일한지 여부
+  @Column({ type: 'boolean' })
+  isUniformOperationTime: boolean;
 
   @OneToMany(() => EventOperationTime, (operationTime) => operationTime.event, {
     cascade: true,
@@ -70,6 +74,7 @@ export enum DayOfWeek {
   Fri = 'fri',
   Sat = 'sat',
   Sun = 'sun',
+  All = 'all',
 }
 
 export type TimeSlot = {
@@ -87,12 +92,15 @@ export class EventOperationTime {
   @Column({ type: 'enum', enum: DayOfWeek })
   day: DayOfWeek;
 
-  @Column({
-    type: 'jsonb',
-  })
-  timeSlots: TimeSlot[];
-
   // 이벤트
   @ManyToOne(() => Event, (event) => event.operationTimes)
   event: Event;
+
+  // 운영 시작 시간 ex. 09:00
+  @Column({ type: 'time' })
+  startTime: string;
+
+  // 운영 종료 시간 ex. 18:00
+  @Column({ type: 'time' })
+  endTime: string;
 }

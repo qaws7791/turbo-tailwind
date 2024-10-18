@@ -1,10 +1,13 @@
 import {
   ArrayMaxSize,
   IsArray,
+  IsBoolean,
   IsDate,
   IsEnum,
+  IsMilitaryTime,
   IsNumber,
   IsString,
+  Min,
   MinLength,
   ValidateNested,
 } from 'class-validator';
@@ -44,6 +47,13 @@ export class CreateEventDto {
   @IsNumber()
   unitBookingTime: 30 | 60;
 
+  @IsBoolean()
+  isUniformOperationTime: boolean;
+
+  @IsNumber()
+  @Min(1)
+  stock: number;
+
   @IsArray()
   @ValidateNested({
     each: true,
@@ -56,18 +66,9 @@ class CreateEventOperationTimeDto {
   @IsEnum(DayOfWeek)
   day: DayOfWeek;
 
-  @IsArray()
-  @ValidateNested({
-    each: true,
-  })
-  @Type(() => CreateTimeSlotDto)
-  timeSlots: CreateTimeSlotDto[];
-}
-
-class CreateTimeSlotDto {
-  @IsString()
+  @IsMilitaryTime()
   startTime: string;
 
-  @IsString()
+  @IsMilitaryTime()
   endTime: string;
 }
