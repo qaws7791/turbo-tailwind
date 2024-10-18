@@ -59,6 +59,9 @@ importers:
       connect-redis:
         specifier: ^7.1.1
         version: 7.1.1(express-session@1.18.1)
+      dayjs:
+        specifier: ^1.11.13
+        version: 1.11.13
       fastify:
         specifier: ^4.28.1
         version: 4.28.1
