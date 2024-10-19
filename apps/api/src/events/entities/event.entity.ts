@@ -5,6 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Reservation } from '../../reservations/entities/reservation.entity';
 
 @Entity()
 export class Event {
@@ -63,6 +64,9 @@ export class Event {
     cascade: true,
   })
   operationTimes: EventOperationTime[];
+
+  @OneToMany(() => Reservation, (reservation) => reservation.event)
+  reservations: Reservation[];
 }
 
 // 요일 enum을 객체로 분리

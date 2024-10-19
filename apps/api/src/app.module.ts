@@ -10,14 +10,14 @@ import configuration from './config/configuration';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { BoardsModule } from './boards/boards.module';
-import { Board } from './boards/entities/board.entity';
-import { ArticlesService } from './articles/articles.service';
-import { ArticlesController } from './articles/articles.controller';
+import { Board } from './boards/entities/board.entity';\
 import { ArticlesModule } from './articles/articles.module';
 import { Article } from './articles/entities/article.entity';
 import { CommonModule } from './common/common.module';
 import { EventsModule } from './events/events.module';
 import { Event, EventOperationTime } from './events/entities/event.entity';
+import { ReservationsModule } from './reservations/reservations.module';
+import { Reservation } from './reservations/entities/reservation.entity';
 
 @Module({
   imports: [
@@ -28,7 +28,7 @@ import { Event, EventOperationTime } from './events/entities/event.entity';
       ssl: {
         rejectUnauthorized: false,
       },
-      entities: [User, Board, Article, Event, EventOperationTime],
+      entities: [User, Board, Article, Event, EventOperationTime, Reservation],
       synchronize: configuration().NODE_ENV === 'dev',
       logging: true,
     }),
@@ -38,6 +38,7 @@ import { Event, EventOperationTime } from './events/entities/event.entity';
     ArticlesModule,
     CommonModule,
     EventsModule,
+    ReservationsModule,
   ],
   controllers: [AppController],
   providers: [

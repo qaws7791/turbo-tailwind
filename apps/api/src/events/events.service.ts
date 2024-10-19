@@ -13,7 +13,7 @@ dayjs.extend(isSameOrBefore);
 dayjs.extend(isBetween);
 dayjs.extend(customParseFormat);
 
-const dayOfWeekMap = {
+export const dayOfWeekMap = {
   0: 'sun',
   1: 'mon',
   2: 'tue',
