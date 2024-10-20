@@ -12,17 +12,21 @@ export interface ButtonProps extends RACButtonProps {
 
 export const button = tv({
   extend: focusRing,
-  base: "px-5 py-2 text-sm text-center transition rounded-lg border border-black/10 dark:border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] dark:shadow-none cursor-pointer inline-flex disabled:cursor-not-allowed",
+  base: "ui-px-5 ui-py-2 ui-h-10 ui-text-sm ui-text-center ui-transition ui-rounded-lg ui-border ui-border-black/10 ui-shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] ui-cursor-pointer ui-inline-flex disabled:ui-cursor-not-allowed",
   variants: {
     variant: {
-      primary: "bg-blue-600 hover:bg-blue-700 pressed:bg-blue-800 text-white",
+      primary:
+        "ui-bg-blue-600 hover:ui-bg-blue-700 pressed:ui-bg-blue-800 ui-text-white disabled:ui-bg-blue-400",
       secondary:
-        "bg-gray-100 hover:bg-gray-200 pressed:bg-gray-300 text-gray-800 dark:bg-zinc-600 dark:hover:bg-zinc-500 dark:pressed:bg-zinc-400 dark:text-zinc-100",
-      destructive: "bg-red-700 hover:bg-red-800 pressed:bg-red-900 text-white",
-      icon: "border-0 p-1 flex items-center justify-center text-gray-600 hover:bg-black/[5%] pressed:bg-black/10 dark:text-zinc-400 dark:hover:bg-white/10 dark:pressed:bg-white/20 disabled:bg-transparent",
+        "ui-bg-transparent hover:ui-bg-gray-100 pressed:ui-bg-gray-200 ui-text-gray-800 disabled:ui-bg-gray-200 disabled:ui-text-gray-400",
+      destructive:
+        "ui-bg-red-700 hover:ui-bg-red-800 pressed:ui-bg-red-900 ui-text-white disabled:ui-bg-red-400",
+      ghost:
+        "ui-bg-transparent ui-text-gray-600 hover:ui-text-gray-800 pressed:ui-text-gray-900 disabled:ui-text-gray-400 ui-border-transparent hover:ui-bg-black/[5%] pressed:ui-bg-black/10 disabled:ui-bg-transparent",
+      icon: "ui-border-0 ui-w-10 ui-px-2 ui-py-2 ui-flex ui-items-center ui-justify-center ui-text-gray-600 hover:ui-bg-gray-100 pressed:ui-bg-gray-200 disabled:ui-bg-transparent",
     },
     isDisabled: {
-      true: "bg-gray-100 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 forced-colors:text-[GrayText] border-black/5 dark:border-white/5",
+      true: "",
     },
   },
   defaultVariants: {
