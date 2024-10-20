@@ -10,7 +10,7 @@ export default {
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "destructive"],
+      options: ["primary", "secondary", "destructive", "icon", "ghost"],
     },
   },
   args: {
@@ -34,5 +34,18 @@ export const Secondary = {
 export const Destructive = {
   args: {
     variant: "destructive",
+  },
+};
+
+export const Icon = {
+  args: {
+    variant: "icon",
+    children: "🚀",
+  },
+};
+
+export const Ghost = {
+  args: {
+    variant: "ghost",
   },
 };
