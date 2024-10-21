@@ -10,7 +10,18 @@ export default {
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "destructive", "icon", "ghost"],
+      options: [
+        "primary",
+        "secondary",
+        "success",
+        "danger",
+        "outline",
+        "ghost",
+      ],
+    },
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg"],
     },
   },
   args: {
@@ -31,16 +42,21 @@ export const Secondary = {
   },
 };
 
-export const Destructive = {
+export const Success = {
   args: {
-    variant: "destructive",
+    variant: "success",
   },
 };
 
-export const Icon = {
+export const Danger = {
   args: {
-    variant: "icon",
-    children: "🚀",
+    variant: "danger",
+  },
+};
+
+export const Outline = {
+  args: {
+    variant: "outline",
   },
 };
 
