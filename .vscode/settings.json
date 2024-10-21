@@ -9,5 +9,8 @@
     "source.organizeImports": "always"
   },
   "editor.formatOnSaveMode": "file",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "tailwindCSS.experimental.classRegex": [
+    ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ]
 }
