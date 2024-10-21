@@ -8,7 +8,8 @@
     "dist"
   ],
   "exports": {
-    "./styles.css": "./dist/index.css"
+    "./styles.css": "./dist/index.css",
+    "./button": "./src/button.tsx"
   },
   "license": "MIT",
   "scripts": {
@@ -34,6 +35,8 @@
     "#*": "./dist/*"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.1.0",
+    "clsx": "^2.1.1",
     "lucide-react": "^0.447.0",
     "tailwind-merge": "^2.5.3",
     "tailwind-variants": "^0.2.1",
