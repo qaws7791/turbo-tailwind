@@ -1,11 +1,11 @@
 
-@import url(https://cdn.jsdelivr.net/npm/spoqa-han-sans@3.3.0/css/SpoqaHanSansNeo.min.css);
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
     html {
-        @apply u-text-gray-900 u-font-sans;
+        @apply u-text-gray-800 u-font-sans;
     }
 }
