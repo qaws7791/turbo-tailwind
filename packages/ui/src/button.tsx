@@ -7,7 +7,7 @@ import { cn, focusRing } from "./utils";
 
 export const buttonStyles = tv({
   extend: focusRing,
-  base: "u-font-medium u-rounded-xl u-cursor-pointer u-flex u-items-center u-justify-center u-transition-all disabled:u-opacity-50 disabled:u-cursor-not-allowed u-whitespace-nowrap",
+  base: "u-font-medium u-rounded-lg u-cursor-pointer u-flex u-items-center u-justify-center u-transition-all disabled:u-opacity-50 disabled:u-cursor-not-allowed u-whitespace-nowrap",
   variants: {
     variant: {
       primary:
