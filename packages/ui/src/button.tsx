@@ -13,15 +13,15 @@ export const buttonStyles = tv({
       primary:
         "u-bg-blue-500 u-text-white hover:u-bg-blue-600 active:u-bg-blue-700",
       secondary:
-        "u-bg-purple-500 u-text-white hover:u-bg-purple-600 active:u-bg-purple-700",
+        "u-bg-gray-200 u-text-gray-800 hover:u-bg-gray-300 active:u-bg-gray-400",
       success:
         "u-bg-green-500 u-text-white hover:u-bg-green-600 active:u-bg-green-700",
       danger:
         "u-bg-red-500 u-text-white hover:u-bg-red-600 active:u-bg-red-700",
       outline:
-        "u-bg-transparent u-text-blue-600 u-border-blue-600 u-border-2 u-box-border hover:u-bg-blue-100 active:u-bg-blue-200",
+        "u-bg-transparent u-text-gray-800 u-border-gray-300 u-border u-box-border hover:u-bg-gray-100 active:u-bg-gray-200",
       ghost:
-        "u-bg-transparent u-text-blue-600 hover:u-bg-blue-100 active:u-bg-blue-200",
+        "u-bg-transparent u-text-gray-800 hover:u-bg-gray-100 active:u-bg-gray-200",
     },
     size: {
       sm: "u-text-sm u-px-3 u-py-2 u-h-9",
