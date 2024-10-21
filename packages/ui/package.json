@@ -13,7 +13,8 @@
     "./drawer": "./src/drawer.tsx",
     "./separator": "./src/separator.tsx",
     "./avatar": "./src/avatar.tsx",
-    "./dropdown-menu": "./src/dropdown-menu.tsx"
+    "./dropdown-menu": "./src/dropdown-menu.tsx",
+    "./icon-button": "./src/icon-button.tsx"
   },
   "license": "MIT",
   "scripts": {
