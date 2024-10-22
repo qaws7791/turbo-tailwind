@@ -3,10 +3,10 @@ import React, { forwardRef } from "react";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 import type { RadixUISlot } from "./types";
-import { cn, focusRing } from "./utils";
+import { cn, focusVisibleRing } from "./utils";
 
 export const buttonStyles = tv({
-  extend: focusRing,
+  extend: focusVisibleRing,
   base: "u-font-medium u-rounded-lg u-cursor-pointer u-flex u-items-center u-justify-center u-transition-all disabled:u-opacity-50 disabled:u-cursor-not-allowed u-whitespace-nowrap",
   variants: {
     variant: {
