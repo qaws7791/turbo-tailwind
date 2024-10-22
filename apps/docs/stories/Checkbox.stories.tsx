@@ -1,5 +1,5 @@
 import { Button } from "@repo/ui/button";
-import { Checkbox } from "@repo/ui/checkbox";
+import { Checkbox, CheckboxState } from "@repo/ui/checkbox";
 import { Label } from "@repo/ui/label";
 import { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
@@ -32,7 +32,7 @@ export const Default: Story = {
 };
 
 function IndeterminateCheckbox() {
-  const [checked, setChecked] = useState<boolean | "indeterminate">(false);
+  const [checked, setChecked] = useState<CheckboxState>(false);
 
   console.log("checked", checked);
   return (

@@ -11,6 +11,8 @@ const checkboxStyles = tv({
   base: "u-peer u-h-4.5 u-w-4.5 u-shrink-0 u-rounded-md u-border-2 u-border-gray-300 disabled:u-cursor-not-allowed disabled:u-opacity-50 data-[state=checked]:u-bg-blue-600 data-[state=checked]:u-text-white data-[state=checked]:u-border-none data-[state=indeterminate]:u-bg-blue-600 data-[state=indeterminate]:u-text-white data-[state=indeterminate]:u-border-none u-transition-colors u-flex u-items-center u-justify-center ",
 });
 
+export type CheckboxState = CheckboxPrimitive.CheckedState;
+
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
