@@ -1,3 +1,4 @@
+import { Description, ErrorMessage } from "@repo/ui/form";
 import { Input } from "@repo/ui/input";
 import { Meta, StoryObj } from "@storybook/react";
 import { Mail } from "lucide-react";
@@ -26,11 +27,21 @@ export const Disabled: Story = {
 };
 
 export const File: Story = {
-  render: (args) => <Input {...args} type="file" />,
+  render: (args) => (
+    <div className="flex flex-col gap-1">
+      <Input {...args} type="file" />
+      <Description>Upload a file</Description>
+    </div>
+  ),
 };
 
 export const Invalid: Story = {
-  render: (args) => <Input {...args} type="email" aria-invalid />,
+  render: (args) => (
+    <div className="flex flex-col gap-1">
+      <Input {...args} type="email" aria-invalid />
+      <ErrorMessage>에러 메시지</ErrorMessage>
+    </div>
+  ),
 };
 
 export const WithIcon: Story = {

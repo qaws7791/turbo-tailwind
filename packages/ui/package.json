@@ -18,7 +18,8 @@
     "./input": "./src/input.tsx",
     "./label": "./src/label.tsx",
     "./radio-group": "./src/radio-group.tsx",
-    "./checkbox": "./src/checkbox.tsx"
+    "./checkbox": "./src/checkbox.tsx",
+    "./form": "./src/form.tsx"
   },
   "license": "MIT",
   "scripts": {
