@@ -16,70 +16,67 @@ export type CheckboxState = CheckboxPrimitive.CheckedState;
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
->(({ className, checked, ...props }, ref) => (
+>(({ className, ...props }, ref) => (
   <CheckboxPrimitive.Root
     ref={ref}
     className={checkboxStyles({ className })}
-    checked={checked}
     {...props}
   >
     <CheckboxPrimitive.Indicator
-      className={cn("flex items-center justify-center text-current group")}
+      className={cn(
+        "u-flex u-items-center u-justify-center u-text-current u-group"
+      )}
     >
-      {checked === true && (
-        <motion.svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="u-w-3.5 u-h-3.5"
-        >
-          <motion.path
-            d="M4 10.4968L10.3049 17L20 7"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            stroke="white"
-            strokeWidth={3}
-            strokeLinecap={"round"}
-            strokeLinejoin={"round"}
-            transition={{
-              duration: 0.4,
-              ease: "easeInOut",
-              type: "spring",
-              bounce: 0.25,
-            }}
-            custom={0}
-          />
-        </motion.svg>
-      )}
-      {checked === "indeterminate" && (
-        <motion.svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="u-w-3.5 u-h-3.5"
-        >
-          <motion.path
-            d="M5 12H19"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            stroke="white"
-            strokeWidth={3}
-            strokeLinecap={"round"}
-            strokeLinejoin={"round"}
-            transition={{
-              duration: 0.4,
-              ease: "easeInOut",
-              type: "spring",
-              bounce: 0.25,
-            }}
-            custom={0}
-          />
-        </motion.svg>
-      )}
+      <motion.svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="u-w-3.5 u-h-3.5 u-hidden group-data-[state=checked]:u-block"
+      >
+        <motion.path
+          d="M4 10.4968L10.3049 17L20 7"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          stroke="white"
+          strokeWidth={3}
+          strokeLinecap={"round"}
+          strokeLinejoin={"round"}
+          transition={{
+            duration: 0.4,
+            ease: "easeInOut",
+            type: "spring",
+            bounce: 0.25,
+          }}
+          custom={0}
+        />
+      </motion.svg>
+      <motion.svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="u-w-3.5 u-h-3.5 u-hidden group-data-[state=indeterminate]:u-block"
+      >
+        <motion.path
+          d="M5 12H19"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          stroke="white"
+          strokeWidth={3}
+          strokeLinecap={"round"}
+          strokeLinejoin={"round"}
+          transition={{
+            duration: 0.4,
+            ease: "easeInOut",
+            type: "spring",
+            bounce: 0.25,
+          }}
+          custom={0}
+        />
+      </motion.svg>
     </CheckboxPrimitive.Indicator>
   </CheckboxPrimitive.Root>
 ));
