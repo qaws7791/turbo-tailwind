@@ -27,7 +27,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
   <DropdownMenuPrimitive.SubTrigger
     ref={ref}
     className={cn(
-      "u-flex u-cursor-default u-select-none u-items-center u-rounded-md u-px-2 u-py-1.5 u-text-sm u-outline-none focus:u-bg-gray-200 data-[state=open]:u-bg-gray-200 [&_svg]:u-pointer-events-none [&_svg]:u-size-4 [&_svg]:u-shrink-0 u-gap-2",
+      "u-flex u-cursor-default u-select-none u-items-center u-rounded-md u-px-2 u-py-2 u-text-sm u-font-medium u-outline-none focus:u-bg-gray-200 data-[state=open]:u-bg-gray-200 [&_svg]:u-pointer-events-none [&_svg]:u-size-4 [&_svg]:u-shrink-0 u-gap-2",
       inset && "u-pl-8",
       className
     )}
@@ -47,7 +47,7 @@ const DropdownMenuSubContent = React.forwardRef<
   <DropdownMenuPrimitive.SubContent
     ref={ref}
     className={cn(
-      "u-z-50 u-min-w-[8rem] u-overflow-hidden u-rounded-md u-border u-bg-white u-p-1 u-shadow-lg data-[state=open]:u-animate-in data-[state=closed]:u-animate-out data-[state=closed]:u-fade-out-0 data-[state=open]:u-fade-in-0 data-[state=closed]:u-zoom-out-95 data-[state=open]:u-zoom-in-95 data-[side=bottom]:u-slide-in-from-top-2 data-[side=left]:u-slide-in-from-right-2 data-[side=right]:u-slide-in-from-left-2 data-[side=top]:u-slide-in-from-bottom-2",
+      "u-z-50 u-min-w-[8rem] u-overflow-hidden u-rounded-md u-border u-bg-white u-p-1 u-shadow-lg data-[state=open]:u-animate-in data-[state=closed]:u-animate-out data-[state=closed]:u-fade-out-0 data-[state=open]:u-fade-in-0 data-[state=closed]:u-zoom-out-95 data-[state=open]:u-zoom-in-95 data-[side=bottom]:u-slide-in-from-top-2 data-[side=left]:u-slide-in-from-right-2 data-[side=right]:u-slide-in-from-left-2 data-[side=top]:u-slide-in-from-bottom-2 u-mx-2",
       className
     )}
     {...props}
@@ -65,7 +65,7 @@ const DropdownMenuContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        "u-z-50 u-min-w-[8rem] u-overflow-hidden u-rounded-md u-border u-bg-white u-p-1 u-shadow-md data-[state=open]:u-animate-in data-[state=closed]:u-animate-out data-[state=closed]:u-fade-out-0 data-[state=open]:u-fade-in-0 data-[state=closed]:u-zoom-out-95 data-[state=open]:u-zoom-in-95 data-[side=bottom]:u-slide-in-from-top-2 data-[side=left]:u-slide-in-from-right-2 data-[side=right]:u-slide-in-from-left-2 data-[side=top]:u-slide-in-from-bottom-2",
+        "u-z-50 u-min-w-[8rem] u-overflow-hidden u-rounded-xl u-border u-bg-white u-p-1 u-shadow-md data-[state=open]:u-animate-in data-[state=closed]:u-animate-out data-[state=closed]:u-fade-out-0 data-[state=open]:u-fade-in-0 data-[state=closed]:u-zoom-out-95 data-[state=open]:u-zoom-in-95 data-[side=bottom]:u-slide-in-from-top-2 data-[side=left]:u-slide-in-from-right-2 data-[side=right]:u-slide-in-from-left-2 data-[side=top]:u-slide-in-from-bottom-2",
         className
       )}
       {...props}
@@ -83,7 +83,7 @@ const DropdownMenuItem = React.forwardRef<
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
-      "u-relative u-flex u-cursor-default u-select-none u-items-center u-gap-2 u-rounded-md u-px-2 u-py-2 u-text-sm u-outline-none u-transition-colors focus:u-bg-gray-200 data-[disabled]:u-pointer-events-none data-[disabled]:u-opacity-50 [&_svg]:u-pointer-events-none [&_svg]:u-size-4 [&_svg]:u-shrink-0",
+      "u-relative u-flex u-cursor-default u-select-none u-items-center u-gap-2 u-rounded-lg u-px-2 u-py-2 u-text-sm u-font-medium u-outline-none u-transition-colors focus:u-bg-gray-200/70 data-[disabled]:u-pointer-events-none data-[disabled]:u-opacity-50 [&_svg]:u-pointer-events-none [&_svg]:u-size-4 [&_svg]:u-shrink-0",
       inset && "u-pl-8",
       className
     )}
