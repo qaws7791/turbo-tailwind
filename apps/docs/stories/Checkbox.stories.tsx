@@ -19,11 +19,11 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: (args) => (
     <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center">
         <Checkbox id="checkbox" {...args} />
         <Label htmlFor="checkbox">Checkbox</Label>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center">
         <Checkbox id="checkbox2" {...args} />
         <Label htmlFor="checkbox2">Checkbox2</Label>
       </div>
@@ -36,8 +36,8 @@ function IndeterminateCheckbox() {
 
   console.log("checked", checked);
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-2">
+    <div className="flex flex-col">
+      <div className="flex items-center">
         <Checkbox
           id="checkbox3"
           checked={checked}
