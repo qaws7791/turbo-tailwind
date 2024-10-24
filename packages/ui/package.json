@@ -21,7 +21,8 @@
     "./checkbox": "./src/checkbox.tsx",
     "./form": "./src/form.tsx",
     "./select": "./src/select.tsx",
-    "./textarea": "./src/textarea.tsx"
+    "./textarea": "./src/textarea.tsx",
+    "./switch": "./src/switch.tsx"
   },
   "license": "MIT",
   "scripts": {
@@ -56,6 +57,7 @@
     "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-switch": "^1.1.1",
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.9",
     "lucide-react": "^0.447.0",
