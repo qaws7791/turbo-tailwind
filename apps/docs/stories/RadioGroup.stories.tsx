@@ -31,7 +31,7 @@ export const Default: Story = {
           value: "no push notifications",
         },
       ].map(({ id, value }) => (
-        <div key={id} className="flex items-center space-x-3">
+        <div key={id} className="flex items-center">
           <RadioGroupItem value={value} id={id} />
           <Label htmlFor={id}>{value}</Label>
         </div>
