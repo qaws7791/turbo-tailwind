@@ -4,11 +4,11 @@ import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { motion } from "framer-motion";
 import * as React from "react";
 import { tv } from "tailwind-variants";
-import { cn, focusRing } from "./utils";
+import { cn, focusVisibleRing } from "./utils";
 
 const checkboxStyles = tv({
-  extend: focusRing,
-  base: "u-peer u-h-4.5 u-w-4.5 u-shrink-0 u-rounded-md u-border-2 u-border-gray-300 disabled:u-cursor-not-allowed disabled:u-opacity-50 data-[state=checked]:u-bg-blue-600 data-[state=checked]:u-text-white data-[state=checked]:u-border-none data-[state=indeterminate]:u-bg-blue-600 data-[state=indeterminate]:u-text-white data-[state=indeterminate]:u-border-none u-transition-colors u-flex u-items-center u-justify-center ",
+  extend: focusVisibleRing,
+  base: "u-peer u-h-5 u-w-5 u-shrink-0 u-rounded-md u-border-2 u-border-gray-300 disabled:u-cursor-not-allowed disabled:u-opacity-50 data-[state=checked]:u-bg-blue-600 data-[state=checked]:u-text-white data-[state=checked]:u-border-none data-[state=indeterminate]:u-bg-blue-600 data-[state=indeterminate]:u-text-white data-[state=indeterminate]:u-border-none u-transition-colors u-flex u-items-center u-justify-center u-m-2.5 u-group",
 });
 
 export type CheckboxState = CheckboxPrimitive.CheckedState;
@@ -78,6 +78,7 @@ const Checkbox = React.forwardRef<
         />
       </motion.svg>
     </CheckboxPrimitive.Indicator>
+    <div className="u-absolute u-w-10 u-h-10 u-rounded-full group-focus:u-bg-gray-400/15 group-hover:u-bg-gray-400/15"></div>
   </CheckboxPrimitive.Root>
 ));
 Checkbox.displayName = CheckboxPrimitive.Root.displayName;
