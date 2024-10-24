@@ -38,7 +38,7 @@ const RadioGroupItem = React.forwardRef<
       <RadioGroupPrimitive.Indicator className="u-flex u-items-center u-justify-center">
         <div className="u-h-2.5 u-w-2.5 u-rounded-full u-bg-blue-500 " />
       </RadioGroupPrimitive.Indicator>
-      <div className="u-absolute u-w-10 u-h-10 u-rounded-full group-focus:u-bg-gray-400/15 group-hover:u-bg-gray-400/15" />
+      <div className="u-absolute u-w-10 u-h-10 u-rounded-full group-focus:u-bg-gray-400/10 group-hover:u-bg-gray-400/10" />
     </RadioGroupPrimitive.Item>
   );
 });

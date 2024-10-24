@@ -78,7 +78,7 @@ const Checkbox = React.forwardRef<
         />
       </motion.svg>
     </CheckboxPrimitive.Indicator>
-    <div className="u-absolute u-w-10 u-h-10 u-rounded-full group-focus:u-bg-gray-400/15 group-hover:u-bg-gray-400/15"></div>
+    <div className="u-absolute u-w-10 u-h-10 u-rounded-full group-focus:u-bg-gray-400/10 group-hover:u-bg-gray-400/10"></div>
   </CheckboxPrimitive.Root>
 ));
 Checkbox.displayName = CheckboxPrimitive.Root.displayName;
