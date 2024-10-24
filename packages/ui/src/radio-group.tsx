@@ -4,7 +4,7 @@ import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import * as React from "react";
 
 import { tv } from "tailwind-variants";
-import { cn, focusRing } from "./utils";
+import { cn, focusVisibleRing } from "./utils";
 
 const RadioGroup = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,
@@ -21,8 +21,8 @@ const RadioGroup = React.forwardRef<
 RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
 
 const radioGroupItemStyles = tv({
-  extend: focusRing,
-  base: "u-aspect-square u-h-4 u-w-4 u-rounded-full u-border u-border-gray-300 u-bg-white disabled:u-cursor-not-allowed disabled:u-opacity-50 focus:u-ring-2 focus:u-ring-offset-2 focus:u-ring-blue-500 focus:u-ring-offset-white data-[state='checked']:u-bg-blue-600 data-[state='checked']:u-border-transparent",
+  extend: focusVisibleRing,
+  base: "u-aspect-square u-h-5 u-w-5 u-rounded-full u-border u-border-gray-300 u-bg-transparent disabled:u-cursor-not-allowed disabled:u-opacity-50  data-[state='checked']:u-border-blue-500 data-[state='checked']:u-border-transparent u-group u-border-2 border-gray-200 u-m-2.5 u-box-border u-relative u-flex u-items-center u-justify-center",
 });
 
 const RadioGroupItem = React.forwardRef<
@@ -36,8 +36,9 @@ const RadioGroupItem = React.forwardRef<
       {...props}
     >
       <RadioGroupPrimitive.Indicator className="u-flex u-items-center u-justify-center">
-        <div className="u-h-1.5 u-w-1.5 u-rounded-full u-bg-white " />
+        <div className="u-h-2.5 u-w-2.5 u-rounded-full u-bg-blue-500 " />
       </RadioGroupPrimitive.Indicator>
+      <div className="u-absolute u-w-10 u-h-10 u-rounded-full group-focus:u-bg-gray-400/15 group-hover:u-bg-gray-400/15" />
     </RadioGroupPrimitive.Item>
   );
 });
