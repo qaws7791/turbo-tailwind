@@ -22,7 +22,8 @@
     "./form": "./src/form.tsx",
     "./select": "./src/select.tsx",
     "./textarea": "./src/textarea.tsx",
-    "./switch": "./src/switch.tsx"
+    "./switch": "./src/switch.tsx",
+    "./dialog": "./src/dialog.tsx"
   },
   "license": "MIT",
   "scripts": {
