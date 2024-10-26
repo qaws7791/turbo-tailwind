@@ -1,6 +1,7 @@
 import "@repo/ui/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+// 디자인 시스템 스타일보다 뒤에 위치해야 합니다.
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
