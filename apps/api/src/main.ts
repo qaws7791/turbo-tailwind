@@ -1,12 +1,11 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
 import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import configuration from './config/configuration';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -16,17 +15,6 @@ async function bootstrap() {
       rawBody: true,
     },
   );
-
-  await app.register(require('@fastify/secure-session'), {
-    secret: configuration().sessionSecret,
-    salt: configuration().sessionSalt,
-    sessionName: 'session',
-    cookieName: 'sid',
-    expiry: 24 * 60 * 60,
-    cookie: {
-      path: '/',
-    },
-  });
 
   // 유효성 검증 전역 파이프 설정
   app.useGlobalPipes(
