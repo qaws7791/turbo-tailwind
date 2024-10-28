@@ -9,4 +9,7 @@ export default () => ({
   sessionSecret: process.env.SESSION_SECRET,
   sessionSalt: process.env.SESSION_SALT,
   JWT_SECRET: process.env.JWT_SECRET,
+  KAKAO_CLIENT_ID: process.env.KAKAO_CLIENT_ID,
+  KAKAO_SECRET: process.env.KAKAO_SECRET,
+  KAKAO_REDIRECT_URI: process.env.KAKAO_REDIRECT_URI,
 });

@@ -89,7 +89,8 @@ type Query {
 
 type Mutation {
   registerAccount(registerAccountInput: RegisterAccountInput!): Tokens!
-  signIn(signInInput: SignInInput!): Tokens!
+  signInWithEmail(signInInput: SignInInput!): Tokens!
+  signInWithKakao(code: String!): Tokens!
   reissueTokens(refreshToken: String!): Tokens!
   createProduct(createProductInput: CreateProductInput!): Product!
   updateProduct(updateProductInput: UpdateProductInput!): Product!

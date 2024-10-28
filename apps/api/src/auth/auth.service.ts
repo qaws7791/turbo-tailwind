@@ -2,12 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User, UserProvider } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';
+import { KakaoProvider } from './oauth/kakao.oauth';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly userService: UsersService,
+    private readonly configService: ConfigService,
   ) {}
   async registerWithEmail(email: string, password: string) {
     const existingUser = await this.userService.findByEmail(email);
@@ -51,6 +54,29 @@ export class AuthService {
 
     const accessToken = this.signToken(user, 'access');
     const refreshToken = this.signToken(user, 'refresh');
+
+    return {
+      accessToken,
+      refreshToken,
+    };
+  }
+
+  async signInWithKakao(code: string) {
+    const kakao = new KakaoProvider(
+      this.configService.get<string>('KAKAO_CLIENT_ID'),
+      this.configService.get<string>('KAKAO_SECRET'),
+      this.configService.get<string>('KAKAO_REDIRECT_URI'),
+    );
+    const { access_token } = await kakao.fetchToken(code);
+    const profile = await kakao.fetchProfile(access_token);
+    const kakaoUser = await this.userService.findOrCreateKakaoUser({
+      email: profile.kakao_account.email,
+      name: profile.kakao_account.profile.nickname,
+      providerId: profile.id.toString(),
+    });
+
+    const accessToken = this.signToken(kakaoUser, 'access');
+    const refreshToken = this.signToken(kakaoUser, 'refresh');
 
     return {
       accessToken,

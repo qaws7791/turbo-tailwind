@@ -48,6 +48,34 @@ export class UsersService {
     });
   }
 
+  async findOrCreateKakaoUser({
+    email,
+    name,
+    providerId,
+  }: {
+    email: string;
+    name: string;
+    providerId: string;
+  }) {
+    const existingUser = await this.usersRepository.findOne({
+      where: {
+        email,
+      },
+    });
+
+    if (existingUser) {
+      return existingUser;
+    }
+
+    return this.usersRepository.save({
+      email,
+      name,
+      password: null,
+      provider: UserProvider.KAKAO,
+      providerId,
+    });
+  }
+
   findAll() {
     return this.usersRepository.find();
   }

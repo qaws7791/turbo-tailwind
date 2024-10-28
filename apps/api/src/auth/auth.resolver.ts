@@ -24,11 +24,17 @@ export class AuthResolver {
 
   // 이메일과 비밀번호로 로그인
   @Mutation(() => Tokens)
-  signIn(@Args('signInInput') signInInput: SignInInput) {
+  signInWithEmail(@Args('signInInput') signInInput: SignInInput) {
     return this.authService.signInWithEmail(
       signInInput.email,
       signInInput.password,
     );
+  }
+
+  // 카카오로 소셜 로그인
+  @Mutation(() => Tokens)
+  signInWithKakao(@Args('code') code: string) {
+    return this.authService.signInWithKakao(code);
   }
 
   // 리프레시 토큰을 이용해 액세스 토큰을 재발급
