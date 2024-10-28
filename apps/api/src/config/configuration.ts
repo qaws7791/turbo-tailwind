@@ -8,4 +8,5 @@ export default () => ({
   redisPassword: process.env.REDIS_PASSWORD,
   sessionSecret: process.env.SESSION_SECRET,
   sessionSalt: process.env.SESSION_SALT,
+  JWT_SECRET: process.env.JWT_SECRET,
 });
