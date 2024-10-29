@@ -17,6 +17,10 @@ import { PaymentModule } from './payment/payment.module';
 import { ShippingModule } from './shipping/shipping.module';
 import { AddressModule } from './address/address.module';
 import { ReviewModule } from './review/review.module';
+import { Product } from './product/entities/product.entity';
+import { ProductCategory } from './product/entities/product-category.entity';
+import { ProductOptionGroup } from './product/entities/product-option-group.entity';
+import { ProductOption } from './product/entities/product-option.entity';
 
 @Module({
   imports: [
@@ -35,7 +39,13 @@ import { ReviewModule } from './review/review.module';
       ssl: {
         rejectUnauthorized: false,
       },
-      entities: [User],
+      entities: [
+        User,
+        Product,
+        ProductCategory,
+        ProductOptionGroup,
+        ProductOption,
+      ],
       synchronize: configuration().NODE_ENV === 'dev',
       logging: true,
     }),

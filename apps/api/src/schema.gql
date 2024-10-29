@@ -39,9 +39,42 @@ type UserSession {
   role: String!
 }
 
+type ProductCategory {
+  id: Int!
+  name: String!
+  order: Int!
+  products: [Product!]!
+}
+
+type ProductOptionGroup {
+  id: Int!
+  name: String!
+  product: Product!
+  options: [ProductOption!]!
+}
+
+type ProductOption {
+  id: Int!
+  group: ProductOptionGroup!
+  name: String!
+  normalPrice: Int!
+  salePrice: Int!
+  stock: Int!
+  product: Product!
+}
+
 type Product {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  id: Int!
+  name: String!
+  description: String!
+  thumbnailImages: [String!]!
+  cardImage: String!
+  brand: String
+  modelName: String
+  isVisible: Boolean!
+  category: ProductCategory!
+  groups: [ProductOptionGroup!]!
+  options: [ProductOption!]!
 }
 
 type Order {
@@ -79,6 +112,8 @@ type Query {
   user(id: Int!): User!
   session: UserSession!
   product(id: Int!): Product!
+  productCategories: [ProductCategory!]!
+  productCategory(id: Int!): ProductCategory!
   order(id: Int!): Order!
   cart(id: Int!): Cart!
   payment(id: Int!): Payment!
@@ -95,6 +130,15 @@ type Mutation {
   createProduct(createProductInput: CreateProductInput!): Product!
   updateProduct(updateProductInput: UpdateProductInput!): Product!
   removeProduct(id: Int!): Product!
+
+  """Create a new product category"""
+  createProductCategory(createProductCategoryInput: CreateProductCategoryInput!): ProductCategory!
+
+  """Update a product category"""
+  updateProductCategory(updateProductCategoryInput: UpdateProductCategoryInput!): ProductCategory!
+
+  """Remove a product category"""
+  removeProductCategory(id: Int!): String!
   createOrder(createOrderInput: CreateOrderInput!): Order!
   updateOrder(updateOrderInput: UpdateOrderInput!): Order!
   removeOrder(id: Int!): Order!
@@ -134,6 +178,16 @@ input UpdateProductInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
+}
+
+input CreateProductCategoryInput {
+  name: String!
+}
+
+input UpdateProductCategoryInput {
+  id: Float!
+  name: String
+  order: Float
 }
 
 input CreateOrderInput {
