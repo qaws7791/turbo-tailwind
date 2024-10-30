@@ -7,8 +7,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ProductCategory } from './product-category.entity';
+import { ProductOptionValue } from './product-option-value.entity';
 import { ProductOption } from './product-option.entity';
-import { ProductOptionGroup } from './product-option-group.entity';
 
 @Entity()
 @ObjectType()
@@ -31,10 +31,6 @@ export class Product {
   @Field(() => [String])
   thumbnailImages: string[];
 
-  @Column()
-  @Field()
-  cardImage: string;
-
   // product brand
 
   @Column({ length: 100, nullable: true })
@@ -55,10 +51,6 @@ export class Product {
   @ManyToOne(() => ProductCategory, (category) => category.products)
   @Field(() => ProductCategory)
   category: ProductCategory;
-
-  @OneToMany(() => ProductOptionGroup, (option) => option.product)
-  @Field(() => [ProductOptionGroup])
-  groups: ProductOptionGroup[];
 
   @OneToMany(() => ProductOption, (option) => option.product)
   @Field(() => [ProductOption])

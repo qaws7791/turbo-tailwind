@@ -6,7 +6,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ProductOptionGroup } from './product-option-group.entity';
+import { ProductOptionValue } from './product-option-value.entity';
 import { Product } from './product.entity';
 
 @Entity()
@@ -16,27 +16,19 @@ export class ProductOption {
   @Field(() => Int)
   id: number;
 
-  @ManyToOne(() => ProductOptionGroup, (group) => group.options)
-  @Field(() => ProductOptionGroup)
-  group: ProductOptionGroup;
-
-  @Column({ length: 30 })
+  @Column({ length: 10 })
   @Field()
   name: string;
 
-  @Column('int')
+  @Column()
   @Field(() => Int)
-  normalPrice: number;
-
-  @Column('int')
-  @Field(() => Int)
-  salePrice: number;
-
-  @Column('int')
-  @Field(() => Int)
-  stock: number;
+  position: number;
 
   @ManyToOne(() => Product, (product) => product.options)
   @Field(() => Product)
   product: Product;
+
+  @OneToMany(() => ProductOptionValue, (option) => option.option)
+  @Field(() => [ProductOptionValue])
+  values: ProductOptionValue[];
 }

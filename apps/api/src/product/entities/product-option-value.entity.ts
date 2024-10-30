@@ -7,24 +7,19 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ProductOption } from './product-option.entity';
-import { Product } from './product.entity';
 
 @Entity()
 @ObjectType()
-export class ProductOptionGroup {
+export class ProductOptionValue {
   @PrimaryGeneratedColumn()
   @Field(() => Int)
   id: number;
 
-  @Column({ length: 10 })
+  @ManyToOne(() => ProductOption, (group) => group.values)
+  @Field(() => ProductOption)
+  option: ProductOption;
+
+  @Column({ length: 30 })
   @Field()
   name: string;
-
-  @ManyToOne(() => Product, (product) => product.groups)
-  @Field(() => Product)
-  product: Product;
-
-  @OneToMany(() => ProductOption, (option) => option.group)
-  @Field(() => [ProductOption])
-  options: ProductOption[];
 }

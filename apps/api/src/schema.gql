@@ -46,21 +46,18 @@ type ProductCategory {
   products: [Product!]!
 }
 
-type ProductOptionGroup {
+type ProductOptionValue {
   id: Int!
+  option: ProductOption!
   name: String!
-  product: Product!
-  options: [ProductOption!]!
 }
 
 type ProductOption {
   id: Int!
-  group: ProductOptionGroup!
   name: String!
-  normalPrice: Int!
-  salePrice: Int!
-  stock: Int!
+  position: Int!
   product: Product!
+  values: [ProductOptionValue!]!
 }
 
 type Product {
@@ -68,12 +65,10 @@ type Product {
   name: String!
   description: String!
   thumbnailImages: [String!]!
-  cardImage: String!
   brand: String
   modelName: String
   isVisible: Boolean!
   category: ProductCategory!
-  groups: [ProductOptionGroup!]!
   options: [ProductOption!]!
 }
 
@@ -170,13 +165,33 @@ input SignInInput {
 }
 
 input CreateProductInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  name: String!
+  description: String!
+  thumbnailImages: [String!]!
+  brand: String
+  modelName: String
+  category: Float!
+  productOptions: [CreateProductOptionInput!]!
+}
+
+input CreateProductOptionInput {
+  name: String!
+  position: Int!
+  options: [CreateProductOptionValueInput!]!
+}
+
+input CreateProductOptionValueInput {
+  name: String!
 }
 
 input UpdateProductInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  name: String
+  description: String
+  thumbnailImages: [String!]
+  brand: String
+  modelName: String
+  category: Float
+  productOptions: [CreateProductOptionInput!]
   id: Int!
 }
 
