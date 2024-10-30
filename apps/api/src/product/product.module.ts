@@ -4,8 +4,8 @@ import { ProductResolver } from './resolvers/product.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { ProductCategory } from './entities/product-category.entity';
-import { ProductOptionGroup } from './entities/product-option-group.entity';
 import { ProductOption } from './entities/product-option.entity';
+import { ProductOptionValue } from './entities/product-option-value.entity';
 import { ProductCategoryResolver } from './resolvers/product-category.resolver';
 import { ProductCategoryService } from './services/product-category.service';
 
@@ -14,8 +14,8 @@ import { ProductCategoryService } from './services/product-category.service';
     TypeOrmModule.forFeature([
       Product,
       ProductCategory,
-      ProductOptionGroup,
       ProductOption,
+      ProductOptionValue,
     ]),
   ],
   providers: [

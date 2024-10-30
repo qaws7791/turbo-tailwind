@@ -19,8 +19,8 @@ import { AddressModule } from './address/address.module';
 import { ReviewModule } from './review/review.module';
 import { Product } from './product/entities/product.entity';
 import { ProductCategory } from './product/entities/product-category.entity';
-import { ProductOptionGroup } from './product/entities/product-option-group.entity';
 import { ProductOption } from './product/entities/product-option.entity';
+import { ProductOptionValue } from './product/entities/product-option-value.entity';
 
 @Module({
   imports: [
@@ -43,8 +43,8 @@ import { ProductOption } from './product/entities/product-option.entity';
         User,
         Product,
         ProductCategory,
-        ProductOptionGroup,
         ProductOption,
+        ProductOptionValue,
       ],
       synchronize: configuration().NODE_ENV === 'dev',
       logging: true,
