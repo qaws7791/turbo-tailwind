@@ -60,6 +60,13 @@ type ProductOption {
   values: [ProductOptionValue!]!
 }
 
+type ProductVariant {
+  id: Int!
+  product: Product!
+  price: Float!
+  optionValues: [ProductOptionValue!]!
+}
+
 type Product {
   id: Int!
   name: String!
@@ -70,6 +77,7 @@ type Product {
   isVisible: Boolean!
   category: ProductCategory!
   options: [ProductOption!]!
+  variants: [ProductVariant!]!
 }
 
 type Order {
@@ -109,6 +117,7 @@ type Query {
   product(id: Int!): Product!
   productCategories: [ProductCategory!]!
   productCategory(id: Int!): ProductCategory!
+  productVariants(productId: Float!): [ProductVariant!]!
   order(id: Int!): Order!
   cart(id: Int!): Cart!
   payment(id: Int!): Payment!
@@ -134,6 +143,9 @@ type Mutation {
 
   """Remove a product category"""
   removeProductCategory(id: Int!): String!
+
+  """Create a new product variant"""
+  createProductVariant(createProductVariantInput: CreateProductVariantInput!): ProductVariant!
   createOrder(createOrderInput: CreateOrderInput!): Order!
   updateOrder(updateOrderInput: UpdateOrderInput!): Order!
   removeOrder(id: Int!): Order!
@@ -203,6 +215,18 @@ input UpdateProductCategoryInput {
   id: Float!
   name: String
   order: Float
+}
+
+input CreateProductVariantInput {
+  productId: Int!
+  price: Float!
+  stock: Int!
+  optionValues: [CreateProductVariantOptionValuesInput!]!
+}
+
+input CreateProductVariantOptionValuesInput {
+  optionValueId: Int!
+  optionId: Int!
 }
 
 input CreateOrderInput {

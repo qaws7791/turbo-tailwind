@@ -8,6 +8,9 @@ import { ProductOption } from './entities/product-option.entity';
 import { ProductOptionValue } from './entities/product-option-value.entity';
 import { ProductCategoryResolver } from './resolvers/product-category.resolver';
 import { ProductCategoryService } from './services/product-category.service';
+import { ProductVariant } from './entities/product-variant.entity';
+import { ProductVariantResolver } from './resolvers/product-variant.resolver';
+import { ProductVariantService } from './services/product-variant.service';
 
 @Module({
   imports: [
@@ -16,6 +19,7 @@ import { ProductCategoryService } from './services/product-category.service';
       ProductCategory,
       ProductOption,
       ProductOptionValue,
+      ProductVariant,
     ]),
   ],
   providers: [
@@ -23,6 +27,8 @@ import { ProductCategoryService } from './services/product-category.service';
     ProductService,
     ProductCategoryResolver,
     ProductCategoryService,
+    ProductVariantResolver,
+    ProductVariantService,
   ],
 })
 export class ProductModule {}

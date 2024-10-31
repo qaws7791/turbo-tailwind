@@ -7,8 +7,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ProductCategory } from './product-category.entity';
-import { ProductOptionValue } from './product-option-value.entity';
 import { ProductOption } from './product-option.entity';
+import { ProductVariant } from './product-variant.entity';
 
 @Entity()
 @ObjectType()
@@ -55,4 +55,8 @@ export class Product {
   @OneToMany(() => ProductOption, (option) => option.product)
   @Field(() => [ProductOption])
   options: ProductOption[];
+
+  @OneToMany(() => ProductVariant, (variant) => variant.product)
+  @Field(() => [ProductVariant])
+  variants: ProductVariant[];
 }
