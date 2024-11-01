@@ -20,8 +20,7 @@ export const iconButtonStyles = tv({
         "u-bg-red-500 u-text-white hover:u-bg-red-600 active:u-bg-red-700",
       outline:
         "u-bg-transparent u-text-blue-600 u-border-blue-600 u-border-2 u-box-border hover:u-bg-blue-100 active:u-bg-blue-200",
-      ghost:
-        "u-bg-transparent u-text-blue-600 hover:u-bg-blue-100 active:u-bg-blue-200",
+      ghost: "u-bg-transparent hover:u-bg-gray-100 active:u-bg-gray-200",
     },
     size: {
       sm: "u-h-9 u-w-9 [&_svg]:u-size-5",
