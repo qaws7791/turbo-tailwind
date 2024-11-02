@@ -23,7 +23,8 @@
     "./select": "./src/select.tsx",
     "./textarea": "./src/textarea.tsx",
     "./switch": "./src/switch.tsx",
-    "./dialog": "./src/dialog.tsx"
+    "./dialog": "./src/dialog.tsx",
+    "./toaster": "./src/toaster.tsx"
   },
   "license": "MIT",
   "scripts": {
@@ -62,6 +63,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.9",
     "lucide-react": "^0.447.0",
+    "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.3",
     "tailwind-variants": "^0.2.1",
     "tailwindcss-animate": "^1.0.7",
