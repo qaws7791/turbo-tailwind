@@ -35,6 +35,47 @@ export type Database = {
   };
   public: {
     Tables: {
+      lists: {
+        Row: {
+          created_at: string;
+          description: string;
+          id: string;
+          is_public: boolean;
+          share_url: string | null;
+          title: string;
+          updated_at: string;
+          user: string;
+        };
+        Insert: {
+          created_at?: string;
+          description?: string;
+          id?: string;
+          is_public?: boolean;
+          share_url?: string | null;
+          title?: string;
+          updated_at?: string;
+          user: string;
+        };
+        Update: {
+          created_at?: string;
+          description?: string;
+          id?: string;
+          is_public?: boolean;
+          share_url?: string | null;
+          title?: string;
+          updated_at?: string;
+          user?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "lists_user_fkey";
+            columns: ["user"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       users: {
         Row: {
           avatar_url: string;
