@@ -1,4 +1,5 @@
 "use client";
+import { createClient } from "@/lib/supabase/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/avatar";
 import {
   DropdownMenu,
@@ -8,10 +9,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@repo/ui/dropdown-menu";
-import { useRouter } from "next/navigation";
-import React from "react";
-import { createClient } from "@/lib/supabase/client";
 import { IconButton } from "@repo/ui/icon-button";
+import { useRouter } from "next/navigation";
 
 interface UserButtonProps {
   user: {
@@ -59,7 +58,7 @@ export default function UserButton({ user }: UserButtonProps): JSX.Element {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={handleLogout}> Logout</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>로그아웃</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
