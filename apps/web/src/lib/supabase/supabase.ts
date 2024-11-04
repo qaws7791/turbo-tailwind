@@ -35,13 +35,56 @@ export type Database = {
   };
   public: {
     Tables: {
+      links: {
+        Row: {
+          created_at: string;
+          favicon_url: string | null;
+          id: string;
+          list: string;
+          memo: string;
+          preview_url: string | null;
+          title: string;
+          updated_at: string | null;
+          url: string;
+        };
+        Insert: {
+          created_at?: string;
+          favicon_url?: string | null;
+          id?: string;
+          list: string;
+          memo?: string;
+          preview_url?: string | null;
+          title?: string;
+          updated_at?: string | null;
+          url: string;
+        };
+        Update: {
+          created_at?: string;
+          favicon_url?: string | null;
+          id?: string;
+          list?: string;
+          memo?: string;
+          preview_url?: string | null;
+          title?: string;
+          updated_at?: string | null;
+          url?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "links_list_fkey";
+            columns: ["list"];
+            isOneToOne: false;
+            referencedRelation: "lists";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       lists: {
         Row: {
           created_at: string;
           description: string;
           id: string;
           is_public: boolean;
-          share_url: string | null;
           title: string;
           updated_at: string;
           user: string;
@@ -51,7 +94,6 @@ export type Database = {
           description?: string;
           id?: string;
           is_public?: boolean;
-          share_url?: string | null;
           title?: string;
           updated_at?: string;
           user: string;
@@ -61,7 +103,6 @@ export type Database = {
           description?: string;
           id?: string;
           is_public?: boolean;
-          share_url?: string | null;
           title?: string;
           updated_at?: string;
           user?: string;
