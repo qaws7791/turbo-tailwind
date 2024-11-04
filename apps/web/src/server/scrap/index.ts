@@ -4,6 +4,15 @@ export const isRelativeUrl = (url: string) => {
   return !url.startsWith("http");
 };
 
+// html에서 description meta tag의 content를 찾아 반환
+export const findDescriptionFromHTML = (html: string) => {
+  const match = /<meta name="description" content="(?:.*)">/.exec(html);
+  if (!match) {
+    return null;
+  }
+  return match[1];
+};
+
 export async function scrapLinkInfo(url: string) {
   // fetch link info
   const { result, error } = await ogs({
@@ -15,18 +24,12 @@ export async function scrapLinkInfo(url: string) {
       error: "Failed to scrape link info. Please check the URL and try again.",
     };
   }
+  result.dcTitle;
 
   const title = result.ogTitle || result.twitterTitle || new URL(url).origin;
 
-  let description = "";
   let image = null;
   let favicon = null;
-
-  if (result.ogDescription) {
-    description = result.ogDescription;
-  } else if (result.twitterDescription) {
-    description = result.twitterDescription;
-  }
 
   if (result.ogImage) {
     image = result.ogImage[0].url;
@@ -46,7 +49,6 @@ export async function scrapLinkInfo(url: string) {
 
   return {
     title,
-    description,
     image,
     url: result.requestUrl,
     favicon,
