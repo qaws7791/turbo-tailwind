@@ -1,6 +1,4 @@
 "use client";
-import { updateList } from "@/lib/supabase/client/mutations/lists";
-import { getList } from "@/lib/supabase/client/queries/lists";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/button";
 import {
@@ -14,15 +12,17 @@ import {
 import { ErrorMessage } from "@repo/ui/form";
 import { Input } from "@repo/ui/input";
 import { Label } from "@repo/ui/label";
+import { Switch } from "@repo/ui/switch";
 import { toast } from "@repo/ui/toaster";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
 const listEditSchema = z.object({
   title: z.string().min(1).max(200),
   description: z.string().max(1000).optional(),
+  is_public: z.boolean().optional(),
 });
 type ListEditData = z.infer<typeof listEditSchema>;
 
@@ -36,17 +36,25 @@ export default function ListEditDialog({
   onClose,
 }: ListEditDialogProps) {
   const router = useRouter();
-  const { reset, register, formState, handleSubmit } = useForm<ListEditData>({
-    resolver: zodResolver(listEditSchema),
-    defaultValues: {
-      title: "",
-      description: "",
-    },
-  });
+  const { reset, register, formState, handleSubmit, control } =
+    useForm<ListEditData>({
+      resolver: zodResolver(listEditSchema),
+      defaultValues: {
+        title: "",
+        description: "",
+        is_public: false,
+      },
+    });
 
   const onSubmit = handleSubmit(async (data: ListEditData) => {
     try {
-      await updateList(listId, data);
+      await fetch(`/api/lists/${listId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       toast.success("리스트를 수정했습니다.");
       onClose?.();
       router.refresh();
@@ -56,12 +64,22 @@ export default function ListEditDialog({
   });
 
   useEffect(() => {
-    void getList(listId).then((list) => {
-      reset({
-        title: list.title,
-        description: list.description,
+    void fetch(`/api/lists/${listId}`)
+      .then(
+        (response) =>
+          response.json() as Promise<{
+            title: string;
+            description: string;
+            is_public: boolean;
+          }>
+      )
+      .then((data) => {
+        reset({
+          title: data.title,
+          description: data.description,
+          is_public: data.is_public,
+        });
       });
-    });
   }, [listId, reset]);
 
   useEffect(() => {
@@ -81,10 +99,8 @@ export default function ListEditDialog({
         </DialogHeader>
 
         <div className="flex gap-4 py-4 flex-col">
-          <div className="grid grid-cols-5 items-center gap-4">
-            <Label className="text-right" htmlFor="title">
-              이름
-            </Label>
+          <div className="flex flex-col gap-4">
+            <Label htmlFor="title">이름</Label>
             <Input
               id="title"
               {...register("title", { required: true })}
@@ -92,16 +108,35 @@ export default function ListEditDialog({
             />
             <ErrorMessage>{formState.errors.title?.message}</ErrorMessage>
           </div>
-          <div className="grid grid-cols-5 items-center gap-4">
-            <Label className="text-right" htmlFor="description">
-              설명
-            </Label>
+          <div className="flex flex-col gap-4">
+            <Label htmlFor="description">설명</Label>
             <Input
               id="description"
               {...register("description", { required: true })}
               className="col-span-4"
             />
             <ErrorMessage>{formState.errors.description?.message}</ErrorMessage>
+          </div>
+          <div className="flex items-center gap-4 justify-between">
+            <Label htmlFor="isPublic">공개 여부</Label>
+            <Controller
+              control={control}
+              name="is_public"
+              render={({ field }) => {
+                return (
+                  <div className="flex items-center">
+                    <Switch
+                      checked={field.value}
+                      id="isPublic"
+                      onCheckedChange={field.onChange}
+                    />
+                    <span className="ml-2">
+                      {field.value ? "공개" : "비공개"}
+                    </span>
+                  </div>
+                );
+              }}
+            />
           </div>
         </div>
         <ErrorMessage>{formState.errors.root?.message}</ErrorMessage>

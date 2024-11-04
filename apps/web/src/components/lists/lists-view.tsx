@@ -1,5 +1,5 @@
 "use client";
-import { getLists } from "@/lib/supabase/client/queries/lists";
+import type { Tables } from "@/lib/supabase/supabase";
 import { Button } from "@repo/ui/button";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { Album, Lock, UsersRound } from "lucide-react";
@@ -8,8 +8,10 @@ import Link from "next/link";
 export default function ListsView(): JSX.Element {
   const listQuery = useSuspenseInfiniteQuery({
     queryKey: ["lists"],
-    queryFn: async ({ pageParam = null }) => {
-      return getLists(pageParam);
+    queryFn: ({ pageParam = null }) => {
+      return fetch(`/api/lists?${pageParam ? `cursor=${pageParam}` : ""}`).then(
+        (res) => res.json() as Promise<Tables<"lists">[]>
+      );
     },
     getNextPageParam: (lastPage) => {
       return lastPage.length === 20 ? lastPage[lastPage.length - 1].id : null;
