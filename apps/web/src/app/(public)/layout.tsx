@@ -1,4 +1,4 @@
-import LandingHeader from "@/app/(landing)/landing-header";
+import LandingHeader from "@/app/(public)/landing-header";
 
 export default function Layout({
   children,
@@ -6,7 +6,7 @@ export default function Layout({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <div>
+    <div className="pt-20">
       <LandingHeader />
       {children}
     </div>
