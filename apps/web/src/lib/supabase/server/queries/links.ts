@@ -4,6 +4,26 @@ export const getPublicUrl = (path: string) => {
   return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${path}`;
 };
 
+export async function getLink(linkId: string) {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("links")
+    .select("*")
+    .eq("id", linkId)
+    .single();
+
+  if (error) {
+    throw new Error("Failed to fetch link");
+  }
+
+  return {
+    ...data,
+    favicon_url: data.favicon_url ? getPublicUrl(data.favicon_url) : null,
+    preview_url: data.preview_url ? getPublicUrl(data.preview_url) : null,
+  };
+}
+
 export async function getLinks(
   listId: string,
   nextCursor: string | null = null
