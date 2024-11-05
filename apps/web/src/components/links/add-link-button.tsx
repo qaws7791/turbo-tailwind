@@ -14,7 +14,9 @@ import { ErrorMessage } from "@repo/ui/form";
 import { Input } from "@repo/ui/input";
 import { Label } from "@repo/ui/label";
 import { toast } from "@repo/ui/toaster";
-import { PlusIcon } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { Loader2Icon, PlusIcon } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -29,13 +31,14 @@ const addLinkSchema = z.object({
 type AddLinkForm = z.infer<typeof addLinkSchema>;
 
 export default function AddLinkButton({ listId }: AddLinkButtonProps) {
+  const queryClient = useQueryClient();
+  const [open, setOpen] = useState(false);
   const { reset, register, formState, handleSubmit } = useForm<AddLinkForm>({
     resolver: zodResolver(addLinkSchema),
     defaultValues: {
       url: "",
     },
   });
-
   const onSubmit = handleSubmit(async (data: AddLinkForm) => {
     try {
       const res = await fetch(`/api/lists/${listId}/links`, {
@@ -50,14 +53,21 @@ export default function AddLinkButton({ listId }: AddLinkButtonProps) {
       if (!res.ok) {
         throw new Error(res.statusText);
       }
+      await queryClient.invalidateQueries({
+        queryKey: ["lists", listId, "links"],
+      });
+      toast.success("성공적으로 링크를 추가했습니다.");
+      setOpen(false);
       reset();
     } catch (error) {
-      toast.error("Error adding link");
+      toast.error(
+        "링크를 추가하는 중에 문제가 발생했습니다. 다시 시도해주세요."
+      );
     }
   });
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
         <Button size="sm">
           <PlusIcon className="size-4" />
@@ -82,7 +92,15 @@ export default function AddLinkButton({ listId }: AddLinkButtonProps) {
             <DialogClose asChild>
               <Button variant="ghost">닫기</Button>
             </DialogClose>
-            <Button type="submit">링크 추가</Button>
+            <Button
+              disabled={formState.isSubmitting || !formState.isValid}
+              type="submit"
+            >
+              {formState.isSubmitting ? (
+                <Loader2Icon className="animate-spin" />
+              ) : null}
+              {formState.isSubmitting ? "추가 중..." : "링크 추가"}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
