@@ -1,22 +1,8 @@
 "use client";
+import LinkMenu from "@/components/links/link-menu";
 import type { Tables } from "@/lib/supabase/supabase";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@repo/ui/dropdown-menu";
-import { IconButton } from "@repo/ui/icon-button";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import {
-  Edit2Icon,
-  EllipsisVertical,
-  ImageIcon,
-  LinkIcon,
-  Trash2Icon,
-} from "lucide-react";
+import { ImageIcon, LinkIcon } from "lucide-react";
 import Image from "next/image";
 
 interface LinksViewProps {
@@ -67,28 +53,7 @@ export default function LinksView({ listId }: LinksViewProps): JSX.Element {
               </a>
             </div>
             <div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <IconButton variant="ghost">
-                    <EllipsisVertical className="size-5" />
-                  </IconButton>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuLabel className="sr-only">
-                    링크 메뉴
-                  </DropdownMenuLabel>
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                      <Edit2Icon />
-                      <span>수정</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Trash2Icon />
-                      <span>삭제</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <LinkMenu link={link} />
             </div>
           </div>
           <div className="flex border-b border-gray-200 pb-2">
