@@ -1,7 +1,6 @@
 import "@repo/ui/styles.css";
 import type { Metadata } from "next";
 // 디자인 시스템 스타일보다 뒤에 위치해야 합니다.
-import QueryProvider from "@/components/query-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,9 +15,7 @@ export default function RootLayout({
 }): JSX.Element {
   return (
     <html lang="ko">
-      <body>
-        <QueryProvider>{children}</QueryProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
