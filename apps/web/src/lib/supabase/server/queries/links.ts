@@ -8,7 +8,7 @@ export async function getLinks(
   listId: string,
   nextCursor: string | null = null
 ) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
     data: { user },

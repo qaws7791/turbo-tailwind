@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import "server-only";
 
 export default async function getProfile() {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data } = await supabase.auth.getUser();
 

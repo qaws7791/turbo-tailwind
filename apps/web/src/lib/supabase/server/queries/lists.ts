@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getPublicUrl } from "@/lib/supabase/server/queries/links";
 
 export async function getList(id: string) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data, error } = await supabase
     .from("lists")
@@ -19,7 +19,7 @@ export async function getList(id: string) {
 }
 
 export async function getLists(nextCursor: string | null = null) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
     data: { user },
@@ -51,7 +51,7 @@ export async function getLists(nextCursor: string | null = null) {
 }
 
 export async function getPublicListWithLinks(id: string) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data, error } = await supabase
     .from("lists")

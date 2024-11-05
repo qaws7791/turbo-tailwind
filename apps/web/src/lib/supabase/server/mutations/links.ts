@@ -10,7 +10,7 @@ export const createLinkSchema = z.object({
 export type CreateLinkInput = z.infer<typeof createLinkSchema>;
 
 export async function createLink(listId: string, input: CreateLinkInput) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
     data: { user },

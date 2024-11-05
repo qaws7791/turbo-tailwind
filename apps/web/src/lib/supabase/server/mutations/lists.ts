@@ -3,7 +3,7 @@ import type { TablesUpdate } from "@/lib/supabase/supabase";
 import { z } from "zod";
 
 export async function createEmptyList() {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   // 1. Get the current user
   const {
@@ -64,7 +64,7 @@ export const updateListSchema = z.object({
 });
 
 export async function updateList(id: string, data: TablesUpdate<"lists">) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   // 1. Update the list
   const { data: list, error: listError } = await supabase
@@ -81,7 +81,7 @@ export async function updateList(id: string, data: TablesUpdate<"lists">) {
 }
 
 export async function deleteList(id: string) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   // 1. Delete the list
   const { error } = await supabase.from("lists").delete().eq("id", id);
