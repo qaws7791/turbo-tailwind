@@ -10,7 +10,7 @@ export default async function AppHeader(): Promise<JSX.Element> {
     return redirect("/login");
   }
   return (
-    <div className="fixed top-0 left-0 right-0 h-18 flex items-center justify-between px-4 lg:hidden">
+    <div className="fixed top-0 left-0 right-0 h-16 flex items-center justify-between px-4 lg:hidden bg-white">
       {/* left section */}
       <div>
         <AppDrawer />
