@@ -1,5 +1,5 @@
-import ListCreateButton from "@/app/(app)/app/list-create-button";
-import ListsView from "@/components/lists-view";
+import ListCreateButton from "@/components/lists/list-create-button";
+import ListsView from "@/components/lists/lists-view";
 import { getLists } from "@/lib/supabase/server/queries/lists";
 import {
   dehydrate,
@@ -14,7 +14,7 @@ export default async function AppMainPage(): Promise<JSX.Element> {
   await queryClient.prefetchInfiniteQuery({
     initialPageParam: null as string | null,
     queryKey: ["lists"],
-    queryFn: async ({ pageParam = null }) => {
+    queryFn: ({ pageParam = null }) => {
       return getLists(pageParam);
     },
   });
