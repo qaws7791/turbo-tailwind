@@ -2,6 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import { downloadImage, scrapLinkInfo } from "@/server/scrap";
 import { nanoid } from "nanoid";
 import { z } from "zod";
+import type { TablesUpdate } from "@/lib/supabase/supabase";
+import { getPublicUrl } from "@/lib/supabase/server/queries/links";
 
 export const createLinkSchema = z.object({
   url: z.string().url(),
@@ -102,4 +104,90 @@ export async function createLink(listId: string, input: CreateLinkInput) {
       error: "Failed to save link",
     };
   }
+}
+
+export async function updateLink(
+  id: string,
+  data: Pick<TablesUpdate<"links">, "title" | "memo">
+) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error || !user) {
+    throw new Error("User not found");
+  }
+
+  // link가 속한 list가 user의 list인지 확인
+  const { data: link, error: linkError } = await supabase
+    .from("links")
+    .select("id, list:lists (user)")
+    .eq("id", id)
+    .limit(1)
+    .single();
+
+  if (linkError || !link.list || link.list.user !== user.id) {
+    throw new Error("Link not found");
+  }
+
+  const { data: updatedData, error: updateError } = await supabase
+    .from("links")
+    .update(data)
+    .eq("id", id)
+    .select();
+
+  if (updateError || !updatedData[0]) {
+    throw new Error("Failed to update link");
+  }
+
+  return {
+    ...updatedData[0],
+    favicon_url: updatedData[0].favicon_url
+      ? getPublicUrl(updatedData[0].favicon_url)
+      : null,
+    preview_url: updatedData[0].preview_url
+      ? getPublicUrl(updatedData[0].preview_url)
+      : null,
+  };
+}
+
+export async function deleteLink(id: string) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error || !user) {
+    throw new Error("User not found");
+  }
+
+  // link가 속한 list가 user의 list인지 확인
+  const { data: link, error: linkError } = await supabase
+    .from("links")
+    .select("id, list:lists (user)")
+    .eq("id", id)
+    .limit(1)
+    .single();
+
+  if (linkError || !link.list || link.list.user !== user.id) {
+    throw new Error("Link not found");
+  }
+
+  const { error: deleteError } = await supabase
+    .from("links")
+    .delete()
+    .eq("id", id);
+
+  if (deleteError) {
+    throw new Error("Failed to delete link");
+  }
+
+  return {
+    id: link.id,
+  };
 }
