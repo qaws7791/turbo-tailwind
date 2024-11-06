@@ -1,6 +1,13 @@
 import { createClient } from "@/lib/supabase/server";
-import type { TablesUpdate } from "@/lib/supabase/supabase";
 import { z } from "zod";
+
+export const updateListSchema = z.object({
+  title: z.string().max(255),
+  description: z.string().max(1000),
+  is_public: z.boolean(),
+});
+
+export type UpdateListInput = z.infer<typeof updateListSchema>;
 
 export async function createEmptyList() {
   const supabase = await createClient();
@@ -57,13 +64,7 @@ export async function createEmptyList() {
   return list[0];
 }
 
-export const updateListSchema = z.object({
-  title: z.string().max(1000),
-  description: z.string().max(5000),
-  is_public: z.boolean(),
-});
-
-export async function updateList(id: string, data: TablesUpdate<"lists">) {
+export async function updateList(id: string, data: UpdateListInput) {
   const supabase = await createClient();
 
   // 1. Update the list
