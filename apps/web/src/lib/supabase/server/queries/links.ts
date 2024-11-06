@@ -1,7 +1,8 @@
+import { clientEnv } from "@/lib/env";
 import { createClient } from "@/lib/supabase/server";
 
 export const getPublicUrl = (path: string) => {
-  return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${path}`;
+  return `${clientEnv.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${path}`;
 };
 
 export async function getLink(linkId: string) {

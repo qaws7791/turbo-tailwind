@@ -2,13 +2,10 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import "server-only";
 import { type Database } from "../supabase";
+import { clientEnv } from "@/lib/env";
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
-
-if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-  throw new Error("Missing env variables");
-}
+const SUPABASE_URL = clientEnv.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_ANON_KEY = clientEnv.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 export async function createClient() {
   const cookieStore = await cookies();

@@ -1,12 +1,9 @@
 import { createBrowserClient } from "@supabase/ssr";
 import { type Database } from "../supabase";
+import { clientEnv } from "@/lib/env";
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
-
-if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-  throw new Error("Missing env variables");
-}
+const SUPABASE_URL = clientEnv.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_ANON_KEY = clientEnv.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 export function createClient() {
   // Create a supabase client on the browser with project's credentials
