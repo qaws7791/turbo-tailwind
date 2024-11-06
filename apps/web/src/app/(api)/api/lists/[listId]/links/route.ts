@@ -1,8 +1,8 @@
 import {
   createLink,
   createLinkSchema,
-} from "@/lib/supabase/server/mutations/links";
-import { getLinks } from "@/lib/supabase/server/queries/links";
+} from "@/lib/supabase/server/links/links.mutations";
+import { getLinks } from "@/lib/supabase/server/links/links.queries";
 import { HttpErrorResponse, HttpSuccessResponse } from "@/server/utils/http";
 
 export async function GET(

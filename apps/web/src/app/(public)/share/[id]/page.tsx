@@ -1,4 +1,4 @@
-import { getPublicListWithLinks } from "@/lib/supabase/server/queries/lists";
+import { getPublicListWithLinks } from "@/lib/supabase/server/lists/lists.queries";
 import { ImageIcon, LinkIcon } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";

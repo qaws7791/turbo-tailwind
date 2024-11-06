@@ -1,6 +1,6 @@
 import ListCreateButton from "@/components/lists/list-create-button";
 import ListsView from "@/components/lists/lists-view";
-import { getLists } from "@/lib/supabase/server/queries/lists";
+import { getLists } from "@/lib/supabase/server/lists/lists.queries";
 import {
   dehydrate,
   HydrationBoundary,

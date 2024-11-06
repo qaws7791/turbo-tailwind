@@ -1,6 +1,6 @@
 import AppDrawer from "@/app/(app)/app-drawer";
 import UserButton from "@/components/user-button";
-import getProfile from "@/lib/supabase/server/queries/users";
+import getProfile from "@/lib/supabase/server/uesrs/users.queries";
 import { redirect } from "next/navigation";
 
 export default async function AppHeader(): Promise<JSX.Element> {

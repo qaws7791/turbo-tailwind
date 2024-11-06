@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { downloadImage, scrapLinkInfo } from "@/server/scrap";
 import { nanoid } from "nanoid";
 import { z } from "zod";
-import { getPublicUrl } from "@/lib/supabase/server/queries/links";
+import { getPublicUrl } from "@/lib/supabase/server/links/links.queries";
 
 export const createLinkSchema = z.object({
   url: z.string().url(),

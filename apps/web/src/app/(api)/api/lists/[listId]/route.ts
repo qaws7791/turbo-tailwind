@@ -2,8 +2,8 @@ import {
   deleteList,
   updateList,
   updateListSchema,
-} from "@/lib/supabase/server/mutations/lists";
-import { getList } from "@/lib/supabase/server/queries/lists";
+} from "@/lib/supabase/server/lists/lists.mutations";
+import { getList } from "@/lib/supabase/server/lists/lists.queries";
 import { HttpErrorResponse, HttpSuccessResponse } from "@/server/utils/http";
 
 export async function GET(

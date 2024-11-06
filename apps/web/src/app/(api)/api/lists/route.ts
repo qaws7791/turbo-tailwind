@@ -1,5 +1,5 @@
-import { createEmptyList } from "@/lib/supabase/server/mutations/lists";
-import { getLists } from "@/lib/supabase/server/queries/lists";
+import { createEmptyList } from "@/lib/supabase/server/lists/lists.mutations";
+import { getLists } from "@/lib/supabase/server/lists/lists.queries";
 import { HttpErrorResponse, HttpSuccessResponse } from "@/server/utils/http";
 import type { NextRequest } from "next/server";
 import { z } from "zod";

@@ -2,8 +2,8 @@ import AddLinkButton from "@/components/links/add-link-button";
 import LinksView from "@/components/links/links-view";
 import ListDeleteButton from "@/components/lists/list-delete-button";
 import ListEditButton from "@/components/lists/list-edit-button";
-import { getLinks } from "@/lib/supabase/server/queries/links";
-import { getList } from "@/lib/supabase/server/queries/lists";
+import { getLinks } from "@/lib/supabase/server/links/links.queries";
+import { getList } from "@/lib/supabase/server/lists/lists.queries";
 import {
   dehydrate,
   HydrationBoundary,

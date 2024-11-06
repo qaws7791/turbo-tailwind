@@ -2,8 +2,8 @@ import {
   deleteLink,
   updateLink,
   updateLinkSchema,
-} from "@/lib/supabase/server/mutations/links";
-import { getLink } from "@/lib/supabase/server/queries/links";
+} from "@/lib/supabase/server/links/links.mutations";
+import { getLink } from "@/lib/supabase/server/links/links.queries";
 import { HttpErrorResponse, HttpSuccessResponse } from "@/server/utils/http";
 
 export async function GET(

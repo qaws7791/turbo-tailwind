@@ -2,7 +2,7 @@ import AppHeader from "@/app/(app)/app-header";
 import AppSideContent from "@/app/(app)/app-side-content";
 import QueryProvider from "@/components/query-provider";
 import UserButton from "@/components/user-button";
-import getProfile from "@/lib/supabase/server/queries/users";
+import getProfile from "@/lib/supabase/server/uesrs/users.queries";
 import { Toaster } from "@repo/ui/toaster";
 
 export default async function AppLayout({

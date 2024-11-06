@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { getPublicUrl } from "@/lib/supabase/server/queries/links";
+import { getPublicUrl } from "@/lib/supabase/server/links/links.queries";
 
 export async function getList(id: string) {
   const supabase = await createClient();
