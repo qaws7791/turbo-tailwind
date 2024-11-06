@@ -1,12 +1,10 @@
-import { deleteLink, updateLink } from "@/lib/supabase/server/mutations/links";
+import {
+  deleteLink,
+  updateLink,
+  updateLinkSchema,
+} from "@/lib/supabase/server/mutations/links";
 import { getLink } from "@/lib/supabase/server/queries/links";
 import { HttpErrorResponse, HttpSuccessResponse } from "@/server/utils/http";
-import { z } from "zod";
-
-export const updateLinkSchema = z.object({
-  title: z.string().min(1).max(255).optional(),
-  memo: z.string().max(500).optional(),
-});
 
 export async function GET(
   request: Request,

@@ -2,7 +2,6 @@ import { createClient } from "@/lib/supabase/server";
 import { downloadImage, scrapLinkInfo } from "@/server/scrap";
 import { nanoid } from "nanoid";
 import { z } from "zod";
-import type { TablesUpdate } from "@/lib/supabase/supabase";
 import { getPublicUrl } from "@/lib/supabase/server/queries/links";
 
 export const createLinkSchema = z.object({
@@ -10,6 +9,13 @@ export const createLinkSchema = z.object({
 });
 
 export type CreateLinkInput = z.infer<typeof createLinkSchema>;
+
+export const updateLinkSchema = z.object({
+  title: z.string().min(1).max(255).optional(),
+  memo: z.string().max(1000).optional(),
+});
+
+export type UpdateLinkInput = z.infer<typeof updateLinkSchema>;
 
 export async function createLink(listId: string, input: CreateLinkInput) {
   const supabase = await createClient();
@@ -106,10 +112,7 @@ export async function createLink(listId: string, input: CreateLinkInput) {
   }
 }
 
-export async function updateLink(
-  id: string,
-  data: Pick<TablesUpdate<"links">, "title" | "memo">
-) {
+export async function updateLink(id: string, data: UpdateLinkInput) {
   const supabase = await createClient();
 
   const {
