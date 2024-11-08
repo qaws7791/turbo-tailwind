@@ -1,4 +1,5 @@
 "use client";
+import { fetchList, updateList } from "@/client/api/apis/list.api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/button";
 import {
@@ -21,8 +22,8 @@ import { z } from "zod";
 
 const listEditSchema = z.object({
   title: z.string().min(1).max(200),
-  description: z.string().max(1000).optional(),
-  is_public: z.boolean().optional(),
+  description: z.string().max(1000),
+  is_public: z.boolean(),
 });
 type ListEditData = z.infer<typeof listEditSchema>;
 
@@ -48,12 +49,11 @@ export default function ListEditDialog({
 
   const onSubmit = handleSubmit(async (data: ListEditData) => {
     try {
-      await fetch(`/api/lists/${listId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+      await updateList({
+        id: listId,
+        title: data.title,
+        description: data.description,
+        is_public: data.is_public,
       });
       toast.success("리스트를 수정했습니다.");
       onClose?.();
@@ -64,22 +64,13 @@ export default function ListEditDialog({
   });
 
   useEffect(() => {
-    void fetch(`/api/lists/${listId}`)
-      .then(
-        (response) =>
-          response.json() as Promise<{
-            title: string;
-            description: string;
-            is_public: boolean;
-          }>
-      )
-      .then((data) => {
-        reset({
-          title: data.title,
-          description: data.description,
-          is_public: data.is_public,
-        });
+    void fetchList({ id: listId }).then((data) => {
+      reset({
+        title: data.title,
+        description: data.description,
+        is_public: data.is_public,
       });
+    });
   }, [listId, reset]);
 
   useEffect(() => {

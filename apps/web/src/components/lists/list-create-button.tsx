@@ -1,4 +1,5 @@
 "use client";
+import { createList } from "@/client/api/apis/list.api";
 import { Button } from "@repo/ui/button";
 import { toast } from "@repo/ui/toaster";
 import { Plus } from "lucide-react";
@@ -8,15 +9,9 @@ export default function ListCreateButton(): JSX.Element {
   const router = useRouter();
   const handleClick = async () => {
     try {
-      const list = await fetch("/api/lists", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          type: "empty",
-        }),
-      }).then((res) => res.json() as Promise<{ id: string }>);
+      const list = await createList({
+        type: "empty",
+      });
       toast.success("리스트가 생성되었습니다");
       router.push(`/app/lists/${list.id}`);
     } catch (error) {

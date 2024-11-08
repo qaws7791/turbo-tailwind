@@ -1,4 +1,5 @@
 "use client";
+import { deleteList } from "@/client/api/apis/list.api";
 import { Button } from "@repo/ui/button";
 import {
   Dialog,
@@ -18,9 +19,7 @@ export default function ListDeleteButton({ id }: { id: string }): JSX.Element {
   const router = useRouter();
   const handleDelete = async () => {
     try {
-      await fetch(`/api/lists/${id}`, {
-        method: "DELETE",
-      });
+      await deleteList({ id });
       toast.success("List deleted");
       router.push("/app");
     } catch (error) {
