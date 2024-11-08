@@ -1,7 +1,7 @@
 "use client";
 import LinkDeleteDialog from "@/components/links/link-delete-dialog";
 import LinkEditDialog from "@/components/links/link-edit-dialog";
-import type { Tables } from "@/lib/supabase/supabase";
+import type { Link } from "@/client/api/models";
 import { Dialog, DialogTrigger } from "@repo/ui/dialog";
 import {
   DropdownMenu,
@@ -16,7 +16,7 @@ import { EllipsisVertical, Edit2Icon, Trash2Icon } from "lucide-react";
 import { useState } from "react";
 
 interface LinkMenuProps {
-  link: Tables<"links">;
+  link: Link;
 }
 
 export default function LinkMenu({ link }: LinkMenuProps): JSX.Element {

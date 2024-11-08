@@ -1,5 +1,6 @@
 "use client";
-import { Tables } from "@/lib/supabase/supabase";
+import { deleteLink } from "@/client/api/apis/link.api";
+import type { Link } from "@/client/api/models";
 import { Button } from "@repo/ui/button";
 import {
   DialogClose,
@@ -24,12 +25,10 @@ export default function LinkDeleteDialog({
   const queryClient = useQueryClient();
   const handleDelete = async () => {
     try {
-      await fetch(`/api/links/${id}`, {
-        method: "DELETE",
-      });
+      await deleteLink({ id });
       queryClient.setQueryData(
         ["lists", listId, "links"],
-        (oldData: Tables<"links">[] | undefined) => {
+        (oldData: Link[] | undefined) => {
           return oldData?.filter((link) => link.id !== id);
         }
       );

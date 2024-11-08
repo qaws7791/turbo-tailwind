@@ -1,6 +1,6 @@
 "use client";
+import { fetchLinks } from "@/client/api/apis/link.api";
 import LinkMenu from "@/components/links/link-menu";
-import type { Tables } from "@/lib/supabase/supabase";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ImageIcon, LinkIcon } from "lucide-react";
 import Image from "next/image";
@@ -13,9 +13,7 @@ export default function LinksView({ listId }: LinksViewProps): JSX.Element {
   const linkQuery = useSuspenseQuery({
     queryKey: ["lists", listId, "links"],
     queryFn: () => {
-      return fetch(`http://localhost:3000/api/lists/${listId}/links`).then(
-        (res) => res.json() as Promise<Tables<"links">[]>
-      );
+      return fetchLinks({ listId });
     },
   });
 

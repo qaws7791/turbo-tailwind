@@ -1,4 +1,5 @@
 "use client";
+import { createLink } from "@/client/api/apis/link.api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/button";
 import {
@@ -41,18 +42,11 @@ export default function AddLinkButton({ listId }: AddLinkButtonProps) {
   });
   const onSubmit = handleSubmit(async (data: AddLinkForm) => {
     try {
-      const res = await fetch(`/api/lists/${listId}/links`, {
-        method: "POST",
-        body: JSON.stringify({
-          url: data.url,
-          listId,
-        }),
-        credentials: "same-origin",
-      });
+      void (await createLink({
+        url: data.url,
+        listId,
+      }));
 
-      if (!res.ok) {
-        throw new Error(res.statusText);
-      }
       await queryClient.invalidateQueries({
         queryKey: ["lists", listId, "links"],
       });

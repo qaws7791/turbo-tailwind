@@ -1,5 +1,6 @@
 "use client";
-import type { Tables } from "@/lib/supabase/supabase";
+import { updateLink } from "@/client/api/apis/link.api";
+import type { Link } from "@/client/api/models";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/button";
 import {
@@ -20,14 +21,14 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const linkEditSchema = z.object({
-  title: z.string().min(1).max(255).optional(),
-  memo: z.string().max(500).optional(),
+  title: z.string().min(1).max(255),
+  memo: z.string().max(500),
 });
 
 type LinkEditData = z.infer<typeof linkEditSchema>;
 
 interface LinkEditDialogProps {
-  link: Pick<Tables<"links">, "id" | "title" | "memo" | "list">;
+  link: Pick<Link, "id" | "title" | "memo" | "list">;
   onClose?: () => void;
 }
 
@@ -43,17 +44,14 @@ export default function LinkEditDialog({ link, onClose }: LinkEditDialogProps) {
 
   const onSubmit = handleSubmit(async (data: LinkEditData) => {
     try {
-      const res = await fetch(`/api/links/${link.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+      const updatedLink = await updateLink({
+        id: link.id,
+        title: data.title,
+        memo: data.memo,
       });
-      const updatedLink = (await res.json()) as Tables<"links">;
       queryClient.setQueryData(
         ["lists", link.list, "links"],
-        (oldData: Tables<"links">[] | undefined) => {
+        (oldData: Link[] | undefined) => {
           if (!oldData) return;
           return oldData.map((oldLink) =>
             oldLink.id === updatedLink.id ? updatedLink : oldLink
