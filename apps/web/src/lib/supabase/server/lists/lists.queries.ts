@@ -32,10 +32,11 @@ export async function getLists(nextCursor: string | null = null) {
 
   let query = supabase
     .from("lists")
-    .select("*")
+    .select("*, links(*)")
     .eq("user", user.id)
     .order("created_at", { ascending: false })
-    .limit(20);
+    .limit(20)
+    .limit(3, { referencedTable: "links" });
 
   if (nextCursor) {
     query = query.lt("created_at", nextCursor);
@@ -47,7 +48,14 @@ export async function getLists(nextCursor: string | null = null) {
     throw new Error("Failed to fetch lists");
   }
 
-  return data;
+  return data.map((list) => ({
+    ...list,
+    links: list.links.map((link) => ({
+      ...link,
+      favicon_url: link.favicon_url ? getPublicUrl(link.favicon_url) : null,
+      preview_url: link.preview_url ? getPublicUrl(link.preview_url) : null,
+    })),
+  }));
 }
 
 export async function getPublicListWithLinks(id: string) {

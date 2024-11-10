@@ -1,4 +1,4 @@
-import type { List } from "@/client/api/models";
+import type { Link, List } from "@/client/api/models";
 
 export interface FetchListsRequest {
   cursor?: string | null;
@@ -32,7 +32,11 @@ export async function fetchLists(requestParameters: FetchListsRequest) {
     throw new Error("Failed to fetch lists");
   }
 
-  return response.json() as Promise<List[]>;
+  return response.json() as Promise<
+    (List & {
+      links: Link[];
+    })[]
+  >;
 }
 
 export async function updateList(requestParameters: UpdateListsRequest) {
