@@ -25,21 +25,26 @@ export default function ListsView(): JSX.Element {
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
         {items.map((list) => (
           <Link
-            className="border border-gray-200 rounded-lg"
+            className="border border-gray-200 rounded-lg overflow-hidden"
             href={`/app/lists/${list.id}`}
             key={list.id}
           >
-            <ListThumbnail
-              links={list.links
-                .filter((link) => link.preview_url !== null)
-                .map(
-                  (link) =>
-                    ({ src: link.preview_url, title: link.title }) as {
-                      src: string;
-                      title: string;
-                    }
-                )}
-            />
+            <div className="relative rounded-lg overflow-hidden">
+              <ListThumbnail
+                links={list.links
+                  .filter((link) => link.preview_url !== null)
+                  .map(
+                    (link) =>
+                      ({ src: link.preview_url, title: link.title }) as {
+                        src: string;
+                        title: string;
+                      }
+                  )}
+              />
+              <div className="absolute bottom-2 right-2 px-2 bg-black/60 text-white rounded-full text-sm">
+                {list.links.length}
+              </div>
+            </div>
             <div className="px-3 py-4">
               <p className="font-medium">{list.title}</p>
               <div className="flex items-center gap-1 text-sm">
