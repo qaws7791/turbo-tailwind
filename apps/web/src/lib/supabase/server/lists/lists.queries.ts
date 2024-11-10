@@ -32,7 +32,7 @@ export async function getLists(nextCursor: string | null = null) {
 
   let query = supabase
     .from("lists")
-    .select("*, links(*)")
+    .select("*, links(*), link_count: links(count)")
     .eq("user", user.id)
     .order("created_at", { ascending: false })
     .limit(20)
@@ -55,6 +55,7 @@ export async function getLists(nextCursor: string | null = null) {
       favicon_url: link.favicon_url ? getPublicUrl(link.favicon_url) : null,
       preview_url: link.preview_url ? getPublicUrl(link.preview_url) : null,
     })),
+    link_count: list.link_count[0].count,
   }));
 }
 

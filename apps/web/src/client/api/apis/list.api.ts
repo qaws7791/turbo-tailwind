@@ -35,6 +35,7 @@ export async function fetchLists(requestParameters: FetchListsRequest) {
   return response.json() as Promise<
     (List & {
       links: Link[];
+      link_count: number;
     })[]
   >;
 }
