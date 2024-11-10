@@ -1,5 +1,5 @@
 "use client";
-import { createClient } from "@/lib/supabase/client";
+import { signUpWithPassword } from "@/lib/supabase/client/users/users.mutations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/button";
 import { ErrorMessage } from "@repo/ui/form";
@@ -19,7 +19,6 @@ type SignupData = z.infer<typeof signupSchema>;
 
 export default function EmailSignupForm() {
   const router = useRouter();
-  const supabase = createClient();
   const form = useForm<SignupData>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -31,15 +30,7 @@ export default function EmailSignupForm() {
 
   const onSubmit = form.handleSubmit(async (data: SignupData) => {
     // Sign up the user
-    const { error } = await supabase.auth.signUp({
-      email: data.email,
-      password: data.password,
-      options: {
-        data: {
-          user_name: data.username,
-        },
-      },
-    });
+    const { error } = await signUpWithPassword(data);
 
     if (error) {
       form.setError("root", {

@@ -1,5 +1,5 @@
 "use client";
-import { createClient } from "@/lib/supabase/client";
+import { signInWithGoogle } from "@/lib/supabase/client/users/users.mutations";
 import { useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect } from "react";
 
@@ -22,14 +22,10 @@ declare global {
 }
 
 export default function GoogleLoginButton() {
-  const supabase = createClient();
   const router = useRouter();
   useLayoutEffect(() => {
     const handleSignInWithGoogle = async (response: CredentialResponse) => {
-      const { error } = await supabase.auth.signInWithIdToken({
-        provider: "google",
-        token: response.credential,
-      });
+      const { error } = await signInWithGoogle(response.credential);
       if (error) throw error;
       router.push("/app");
     };

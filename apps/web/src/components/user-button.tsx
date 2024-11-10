@@ -1,5 +1,5 @@
 "use client";
-import { createClient } from "@/lib/supabase/client";
+import { signOut } from "@/lib/supabase/client/users/users.mutations";
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/avatar";
 import {
   DropdownMenu,
@@ -22,10 +22,9 @@ interface UserButtonProps {
 
 export default function UserButton({ user }: UserButtonProps): JSX.Element {
   const router = useRouter();
-  const supabase = createClient();
 
   const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
+    const { error } = await signOut();
     if (!error) {
       router.push("/login");
     }

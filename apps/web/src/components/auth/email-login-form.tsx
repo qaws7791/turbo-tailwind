@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { createClient } from "@/lib/supabase/client";
+import { signInWithPassword } from "@/lib/supabase/client/users/users.mutations";
 
 const logisnSchema = z.object({
   email: z.string().email(),
@@ -20,7 +20,6 @@ type LoginData = z.infer<typeof logisnSchema>;
 
 export default function EmailLoginForm() {
   const router = useRouter();
-  const supabase = createClient();
 
   const form = useForm<LoginData>({
     resolver: zodResolver(logisnSchema),
@@ -31,10 +30,7 @@ export default function EmailLoginForm() {
   });
 
   const onSubmit = form.handleSubmit(async (data: LoginData) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email: data.email,
-      password: data.password,
-    });
+    const { error } = await signInWithPassword(data.email, data.password);
 
     if (error) {
       if (error.code === "invalid_credentials") {
