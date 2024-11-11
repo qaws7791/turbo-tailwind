@@ -1,6 +1,6 @@
 "use client";
-import { updateLink } from "@/client/api/apis/link.api";
-import type { Link } from "@/client/api/models";
+import { updateLink } from "@/api/apis/link.api";
+import type { Link } from "@/api/models";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/button";
 import {

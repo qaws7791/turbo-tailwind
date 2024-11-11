@@ -1,4 +1,4 @@
-import type { Link, List } from "@/client/api/models";
+import type { Link, List } from "@/api/models";
 
 export interface FetchListsRequest {
   cursor?: string | null;

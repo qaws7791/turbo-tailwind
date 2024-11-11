@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element -- Using img element for better control over image rendering */
 "use client";
-import { fetchLists } from "@/client/api/apis/list.api";
+import { fetchLists } from "@/api/apis/list.api";
 import { Button } from "@repo/ui/button";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { Album, Lock, UsersRound } from "lucide-react";

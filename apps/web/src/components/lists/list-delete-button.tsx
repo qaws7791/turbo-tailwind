@@ -1,5 +1,5 @@
 "use client";
-import { deleteList } from "@/client/api/apis/list.api";
+import { deleteList } from "@/api/apis/list.api";
 import { Button } from "@repo/ui/button";
 import {
   Dialog,

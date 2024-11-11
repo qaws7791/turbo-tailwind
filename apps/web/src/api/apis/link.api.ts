@@ -1,4 +1,4 @@
-import type { Link } from "@/client/api/models";
+import type { Link } from "@/api/models";
 
 export interface CreateLinkRequest {
   url: string;

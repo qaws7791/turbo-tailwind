@@ -1,6 +1,6 @@
 "use client";
-import { deleteLink } from "@/client/api/apis/link.api";
-import type { Link } from "@/client/api/models";
+import { deleteLink } from "@/api/apis/link.api";
+import type { Link } from "@/api/models";
 import { Button } from "@repo/ui/button";
 import {
   DialogClose,

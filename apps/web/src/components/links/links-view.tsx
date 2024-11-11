@@ -1,5 +1,5 @@
 "use client";
-import { fetchLinks } from "@/client/api/apis/link.api";
+import { fetchLinks } from "@/api/apis/link.api";
 import LinkMenu from "@/components/links/link-menu";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ImageIcon, LinkIcon } from "lucide-react";

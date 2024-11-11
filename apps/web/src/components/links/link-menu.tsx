@@ -1,7 +1,7 @@
 "use client";
 import LinkDeleteDialog from "@/components/links/link-delete-dialog";
 import LinkEditDialog from "@/components/links/link-edit-dialog";
-import type { Link } from "@/client/api/models";
+import type { Link } from "@/api/models";
 import { Dialog, DialogTrigger } from "@repo/ui/dialog";
 import {
   DropdownMenu,

@@ -1,5 +1,5 @@
 "use client";
-import { createLink } from "@/client/api/apis/link.api";
+import { createLink } from "@/api/apis/link.api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/button";
 import {

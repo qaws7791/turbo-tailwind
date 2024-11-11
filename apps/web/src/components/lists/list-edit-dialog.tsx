@@ -1,5 +1,5 @@
 "use client";
-import { fetchList, updateList } from "@/client/api/apis/list.api";
+import { fetchList, updateList } from "@/api/apis/list.api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/button";
 import {
