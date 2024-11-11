@@ -85,7 +85,7 @@ function ListThumbnail({
 
   if (visibleLinks.length === 0) {
     return (
-      <div className="flex items-center justify-center h-32 bg-blue-100">
+      <div className="flex items-center justify-center h-40 bg-blue-100">
         <Album />
       </div>
     );
@@ -93,7 +93,7 @@ function ListThumbnail({
 
   if (visibleLinks.length === 1) {
     return (
-      <div className="h-32 bg-blue-100 relative w-full">
+      <div className="h-40 bg-blue-100 relative w-full">
         <Image
           alt={visibleLinks[0].title}
           className="object-cover w-full h-full"
@@ -107,7 +107,7 @@ function ListThumbnail({
 
   if (visibleLinks.length === 2) {
     return (
-      <div className="h-32 flex">
+      <div className="h-40 flex">
         {visibleLinks.map((link) => (
           <div className="relative w-1/2 h-full" key={link.src}>
             <Image
@@ -125,7 +125,7 @@ function ListThumbnail({
 
   const [first, ...rest] = visibleLinks;
   return (
-    <div className="flex h-32">
+    <div className="flex h-40">
       <div className="relative w-2/3 h-full">
         <Image
           alt={first.title}
