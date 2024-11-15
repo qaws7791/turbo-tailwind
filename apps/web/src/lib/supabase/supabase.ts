@@ -42,6 +42,7 @@ export type Database = {
           id: string;
           list: string;
           memo: string;
+          position: number;
           preview_url: string | null;
           title: string;
           updated_at: string | null;
@@ -53,6 +54,7 @@ export type Database = {
           id?: string;
           list: string;
           memo?: string;
+          position?: number;
           preview_url?: string | null;
           title?: string;
           updated_at?: string | null;
@@ -64,6 +66,7 @@ export type Database = {
           id?: string;
           list?: string;
           memo?: string;
+          position?: number;
           preview_url?: string | null;
           title?: string;
           updated_at?: string | null;
