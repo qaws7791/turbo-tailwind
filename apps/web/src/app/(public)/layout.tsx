@@ -6,7 +6,7 @@ export default function Layout({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <div className="pt-20">
+    <div className="pt-16">
       <LandingHeader />
       {children}
     </div>

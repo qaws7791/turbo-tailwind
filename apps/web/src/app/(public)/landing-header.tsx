@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function LandingHeader(): JSX.Element {
   return (
-    <div className="fixed top-0 left-0 w-full bg-white flex justify-between h-20 px-6 py-4 items-center">
+    <div className="fixed top-0 left-0 w-full bg-white flex justify-between h-16 px-6 py-4 items-center">
       {/* left section */}
 
       <Link
