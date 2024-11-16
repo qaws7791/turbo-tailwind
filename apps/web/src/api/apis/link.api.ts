@@ -1,4 +1,5 @@
 import type { Link } from "@/api/models";
+import { clientEnv } from "@/lib/env";
 
 export interface CreateLinkRequest {
   url: string;
@@ -19,14 +20,19 @@ export interface FetchLinksRequest {
   listId: string;
 }
 
+const baseUrl = clientEnv.NEXT_PUBLIC_URL;
+
 export async function createLink(requestParameters: CreateLinkRequest) {
-  const res = await fetch(`/api/lists/${requestParameters.listId}/links`, {
-    method: "POST",
-    body: JSON.stringify({
-      url: requestParameters.url,
-      listId: requestParameters.listId,
-    }),
-  });
+  const res = await fetch(
+    `${baseUrl}/api/lists/${requestParameters.listId}/links`,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        url: requestParameters.url,
+        listId: requestParameters.listId,
+      }),
+    }
+  );
 
   if (!res.ok) {
     throw new Error("Failed to create link");
@@ -35,7 +41,7 @@ export async function createLink(requestParameters: CreateLinkRequest) {
 }
 
 export async function deleteLink(requestParameters: DeleteLinkRequest) {
-  const res = await fetch(`/api/links/${requestParameters.id}`, {
+  const res = await fetch(`${baseUrl}/api/links/${requestParameters.id}`, {
     method: "DELETE",
   });
 
@@ -49,7 +55,7 @@ export async function deleteLink(requestParameters: DeleteLinkRequest) {
 }
 
 export async function updateLink(requestParameters: UpdateLinkRequest) {
-  const res = await fetch(`/api/links/${requestParameters.id}`, {
+  const res = await fetch(`${baseUrl}/api/links/${requestParameters.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -68,7 +74,9 @@ export async function updateLink(requestParameters: UpdateLinkRequest) {
 }
 
 export async function fetchLinks(requestParameters: FetchLinksRequest) {
-  const res = await fetch(`/api/lists/${requestParameters.listId}/links`);
+  const res = await fetch(
+    `${baseUrl}/api/lists/${requestParameters.listId}/links`
+  );
 
   if (!res.ok) {
     throw new Error("Failed to fetch links");
