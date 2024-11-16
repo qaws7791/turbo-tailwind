@@ -5,6 +5,7 @@ import {
 } from "@/lib/supabase/server/lists/lists.mutations";
 import { getList } from "@/lib/supabase/server/lists/lists.queries";
 import { HttpErrorResponse, HttpSuccessResponse } from "@/server/utils/http";
+import { expirePath } from "next/cache";
 
 export async function GET(
   request: Request,
@@ -45,7 +46,8 @@ export async function PUT(
 
   try {
     const updatedList = await updateList(listId, input.data);
-
+    const path = `/share/${listId}`;
+    expirePath(path);
     return new HttpSuccessResponse(updatedList);
   } catch (error) {
     const message =
