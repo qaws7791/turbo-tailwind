@@ -87,7 +87,7 @@ export type Database = {
           created_at: string;
           description: string;
           id: string;
-          is_public: boolean;
+          public_slug: string | null;
           title: string;
           updated_at: string;
           user: string;
@@ -96,7 +96,7 @@ export type Database = {
           created_at?: string;
           description?: string;
           id?: string;
-          is_public?: boolean;
+          public_slug?: string | null;
           title?: string;
           updated_at?: string;
           user: string;
@@ -105,7 +105,7 @@ export type Database = {
           created_at?: string;
           description?: string;
           id?: string;
-          is_public?: boolean;
+          public_slug?: string | null;
           title?: string;
           updated_at?: string;
           user?: string;
