@@ -59,7 +59,7 @@ export async function getLists(nextCursor: string | null = null) {
   }));
 }
 
-export async function getPublicListWithLinks(id: string) {
+export async function getPublicListWithLinks(slug: string) {
   const supabase = await createClient();
 
   const { data, error } = await supabase
@@ -71,13 +71,13 @@ export async function getPublicListWithLinks(id: string) {
       updated_at,
       title,
       description,
-      is_public,
+      public_slug,
       user: users (id,username,avatar_url),
       links: links (id, title, memo, url, favicon_url,preview_url)
     `
     )
-    .eq("id", id)
-    .eq("is_public", true)
+    .eq("public_slug", slug)
+    .order("position", { referencedTable: "links" })
     .limit(1)
     .single();
 
