@@ -13,17 +13,15 @@ import {
 import { ErrorMessage } from "@repo/ui/form";
 import { Input } from "@repo/ui/input";
 import { Label } from "@repo/ui/label";
-import { Switch } from "@repo/ui/switch";
 import { toast } from "@repo/ui/toaster";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const listEditSchema = z.object({
   title: z.string().min(1).max(200),
   description: z.string().max(1000),
-  is_public: z.boolean(),
 });
 type ListEditData = z.infer<typeof listEditSchema>;
 
@@ -43,7 +41,6 @@ export default function ListEditDialog({
       defaultValues: {
         title: "",
         description: "",
-        is_public: false,
       },
     });
 
@@ -53,7 +50,6 @@ export default function ListEditDialog({
         id: listId,
         title: data.title,
         description: data.description,
-        is_public: data.is_public,
       });
       toast.success("리스트를 수정했습니다.");
       onClose?.();
@@ -68,7 +64,6 @@ export default function ListEditDialog({
       reset({
         title: data.title,
         description: data.description,
-        is_public: data.is_public,
       });
     });
   }, [listId, reset]);
@@ -107,27 +102,6 @@ export default function ListEditDialog({
               className="col-span-4"
             />
             <ErrorMessage>{formState.errors.description?.message}</ErrorMessage>
-          </div>
-          <div className="flex items-center gap-4 justify-between">
-            <Label htmlFor="isPublic">공개 여부</Label>
-            <Controller
-              control={control}
-              name="is_public"
-              render={({ field }) => {
-                return (
-                  <div className="flex items-center">
-                    <Switch
-                      checked={field.value}
-                      id="isPublic"
-                      onCheckedChange={field.onChange}
-                    />
-                    <span className="ml-2">
-                      {field.value ? "공개" : "비공개"}
-                    </span>
-                  </div>
-                );
-              }}
-            />
           </div>
         </div>
         <ErrorMessage>{formState.errors.root?.message}</ErrorMessage>
