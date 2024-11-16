@@ -27,9 +27,9 @@ export default function LinksView({ listId }: LinksViewProps): JSX.Element {
                 <Image
                   alt="Preview"
                   className="rounded-md aspect-square object-cover w-24 h-24"
-                  height={96}
+                  height={200}
                   src={link.preview_url}
-                  width={96}
+                  width={200}
                 />
               ) : (
                 <ImageIcon />
