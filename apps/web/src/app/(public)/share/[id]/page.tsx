@@ -2,10 +2,13 @@ import { getPublicListWithLinks } from "@/lib/supabase/server/lists/lists.querie
 import { ImageIcon, LinkIcon } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-
 interface PublicSharePageProps {
   params: Promise<{ id: string }>;
 }
+
+export const revalidate = 3600;
+export const dynamic = "force-static";
+
 export default async function PublicSharePage({
   params,
 }: PublicSharePageProps) {
@@ -21,7 +24,6 @@ export default async function PublicSharePage({
         <div className="p-4">
           <h1 className="text-4xl font-semibold">{list.title}</h1>
           <p className="text-lg text-gray-600">{list.description}</p>
-
           <div className="flex items-center gap-2 mt-4">
             <img
               alt="Avatar"
@@ -42,11 +44,11 @@ export default async function PublicSharePage({
               <div className="flex-shrink-0">
                 {link.preview_url ? (
                   <Image
-                    alt="Preview"
+                    alt=""
                     className="rounded-md aspect-square object-cover w-24 h-24"
-                    height={96}
+                    height={200}
                     src={link.preview_url}
-                    width={96}
+                    width={200}
                   />
                 ) : (
                   <ImageIcon />
