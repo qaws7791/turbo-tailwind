@@ -167,3 +167,53 @@ export async function batchReorderList(
 
   return { id: listId };
 }
+
+export const updateListPublicStateSchema = z.object({
+  type: z.enum(["public", "private"]),
+});
+
+export type UpdateListPublicStateInput = z.infer<
+  typeof updateListPublicStateSchema
+>;
+
+export async function updateListPublicState(
+  id: string,
+  type: "public" | "private"
+) {
+  const supabase = await createClient();
+
+  // 1. get the list
+  const { data: existList, error: getListError } = await supabase
+    .from("lists")
+    .select()
+    .eq("id", id)
+    .limit(1)
+    .single();
+
+  if (getListError || !existList) {
+    throw new Error("Error getting list");
+  }
+
+  // 2. If the list is already public, return it
+  if (type === "public" && existList.public_slug) {
+    return existList;
+  }
+
+  if (type === "private" && !existList.public_slug) {
+    return existList;
+  }
+
+  const public_slug = type === "public" ? generateSlug() : null;
+  // 3. Update the list to public
+  const { data: list, error: listError } = await supabase
+    .from("lists")
+    .update({ public_slug })
+    .eq("id", id)
+    .select();
+
+  if (listError || list.length === 0) {
+    throw new Error("Error updating list");
+  }
+
+  return list[0];
+}
