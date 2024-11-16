@@ -83,6 +83,18 @@ export async function createLink(listId: string, input: CreateLinkInput) {
       faviconUrl = faviconUpload.data.fullPath;
     }
 
+    const maxPositionOfList = await supabase
+      .from("links")
+      .select("position")
+      .eq("list", listId)
+      .order("position", { ascending: false })
+      .limit(1);
+
+    const newPosition =
+      maxPositionOfList.data && maxPositionOfList.data[0]
+        ? maxPositionOfList.data[0].position + 1
+        : 1;
+
     const { data, error: insertLinkError } = await supabase
       .from("links")
       .insert([
@@ -92,6 +104,7 @@ export async function createLink(listId: string, input: CreateLinkInput) {
           preview_url: ogImageUrl,
           favicon_url: faviconUrl,
           list: listId,
+          position: newPosition,
         },
       ])
       .select();

@@ -44,7 +44,7 @@ export async function getLinks(
     .from("links")
     .select("*")
     .eq("list", listId)
-    .order("created_at", { ascending: false })
+    .order("position")
     .limit(500);
 
   if (nextCursor) {
