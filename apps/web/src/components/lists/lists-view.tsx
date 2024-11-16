@@ -48,12 +48,12 @@ export default function ListsView(): JSX.Element {
             <div className="px-3 py-4">
               <p className="font-medium">{list.title}</p>
               <div className="flex items-center gap-1 text-sm">
-                {list.is_public ? (
+                {list.public_slug ? (
                   <UsersRound className="size-3" />
                 ) : (
                   <Lock className="size-3" />
                 )}
-                {list.is_public ? "공개" : "비공개"}
+                {list.public_slug ? "공개" : "비공개"}
               </div>
             </div>
           </Link>
