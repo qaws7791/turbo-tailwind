@@ -1,4 +1,5 @@
 import type { Link, List } from "@/api/models";
+import { clientEnv } from "@/lib/env";
 
 export interface FetchListsRequest {
   cursor?: string | null;
@@ -8,7 +9,6 @@ export interface UpdateListsRequest {
   id: string;
   title: string;
   description: string;
-  is_public: boolean;
 }
 
 export interface FetchListRequest {
@@ -23,9 +23,16 @@ export interface CreateListRequest {
   type: "empty";
 }
 
+export interface UpdateListShareStateRequest {
+  id: string;
+  type: "public" | "private";
+}
+
+const baseUrl = clientEnv.NEXT_PUBLIC_URL;
+
 export async function fetchLists(requestParameters: FetchListsRequest) {
   const response = await fetch(
-    `/api/lists?${requestParameters.cursor ? `cursor=${requestParameters.cursor}` : ""}`
+    `${baseUrl}/api/lists?${requestParameters.cursor ? `cursor=${requestParameters.cursor}` : ""}`
   );
 
   if (!response.ok) {
@@ -41,7 +48,7 @@ export async function fetchLists(requestParameters: FetchListsRequest) {
 }
 
 export async function updateList(requestParameters: UpdateListsRequest) {
-  const response = await fetch(`/api/lists/${requestParameters.id}`, {
+  const response = await fetch(`${baseUrl}/api/lists/${requestParameters.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -59,7 +66,7 @@ export async function updateList(requestParameters: UpdateListsRequest) {
 }
 
 export async function fetchList(requestParameters: FetchListRequest) {
-  const response = await fetch(`/api/lists/${requestParameters.id}`);
+  const response = await fetch(`${baseUrl}/api/lists/${requestParameters.id}`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch list");
@@ -69,7 +76,7 @@ export async function fetchList(requestParameters: FetchListRequest) {
 }
 
 export async function deleteList(requestParameters: DeleteListRequest) {
-  const response = await fetch(`/api/lists/${requestParameters.id}`, {
+  const response = await fetch(`${baseUrl}/api/lists/${requestParameters.id}`, {
     method: "DELETE",
   });
 
@@ -83,7 +90,7 @@ export async function deleteList(requestParameters: DeleteListRequest) {
 }
 
 export async function createList(requestParameters: CreateListRequest) {
-  const response = await fetch("/api/lists", {
+  const response = await fetch(`${baseUrl}/api/lists`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -93,6 +100,29 @@ export async function createList(requestParameters: CreateListRequest) {
 
   if (!response.ok) {
     throw new Error("Failed to create list");
+  }
+
+  return response.json() as Promise<List>;
+}
+
+export async function updateListShareState(
+  requestParameters: UpdateListShareStateRequest
+) {
+  const { id, ...rest } = requestParameters;
+  const response = await fetch(
+    `${baseUrl}/api/lists/${id}/share`,
+
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(rest),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to update list public state");
   }
 
   return response.json() as Promise<List>;
