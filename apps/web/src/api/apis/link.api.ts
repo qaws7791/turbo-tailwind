@@ -1,5 +1,5 @@
+import httpClient from "@/api/http-client";
 import type { Link } from "@/api/models";
-import { clientEnv } from "@/lib/env";
 
 export interface CreateLinkRequest {
   url: string;
@@ -20,67 +20,35 @@ export interface FetchLinksRequest {
   listId: string;
 }
 
-const baseUrl = clientEnv.NEXT_PUBLIC_URL;
-
-export async function createLink(requestParameters: CreateLinkRequest) {
-  const res = await fetch(
-    `${baseUrl}/api/lists/${requestParameters.listId}/links`,
-    {
-      method: "POST",
-      body: JSON.stringify({
-        url: requestParameters.url,
-        listId: requestParameters.listId,
-      }),
-    }
-  );
-
-  if (!res.ok) {
-    throw new Error("Failed to create link");
-  }
-  return res.json() as Promise<Link>;
+export async function createLink({ listId, url }: CreateLinkRequest) {
+  return httpClient
+    .post<Link>(`lists/${listId}/links`, {
+      json: {
+        url,
+      },
+    })
+    .json();
 }
 
-export async function deleteLink(requestParameters: DeleteLinkRequest) {
-  const res = await fetch(`${baseUrl}/api/links/${requestParameters.id}`, {
-    method: "DELETE",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to delete link");
-  }
-
-  return {
-    id: requestParameters.id,
-  };
+export async function deleteLink({ id }: DeleteLinkRequest) {
+  return httpClient
+    .delete<{
+      id: string;
+    }>(`links/${id}`)
+    .json();
 }
 
-export async function updateLink(requestParameters: UpdateLinkRequest) {
-  const res = await fetch(`${baseUrl}/api/links/${requestParameters.id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      title: requestParameters.title,
-      memo: requestParameters.memo,
-    }),
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to update link");
-  }
-
-  return res.json() as Promise<Link>;
+export async function updateLink({ id, title, memo }: UpdateLinkRequest) {
+  return httpClient
+    .put<Link>(`links/${id}`, {
+      json: {
+        title,
+        memo,
+      },
+    })
+    .json();
 }
 
-export async function fetchLinks(requestParameters: FetchLinksRequest) {
-  const res = await fetch(
-    `${baseUrl}/api/lists/${requestParameters.listId}/links`
-  );
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch links");
-  }
-
-  return res.json() as Promise<Link[]>;
+export async function fetchLinks({ listId }: FetchLinksRequest) {
+  return httpClient.get<Link[]>(`lists/${listId}/links`).json();
 }
