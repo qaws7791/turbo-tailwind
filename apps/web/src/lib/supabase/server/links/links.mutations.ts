@@ -46,42 +46,43 @@ export async function createLink(listId: string, input: CreateLinkInput) {
   try {
     const ogImage = result.image ? await downloadImage(result.image) : null;
     const favicon = result.favicon ? await downloadImage(result.favicon) : null;
-    let ogImageUrl = null;
-    let faviconUrl = null;
+
+    const uploadPromises = [];
     if (ogImage) {
-      const ogImageUpload = await supabase.storage.from("links").upload(
-        `${newId}/image`,
-        await ogImage.image,
-        ogImage.contentType
-          ? {
-              contentType: ogImage.contentType,
-            }
-          : {}
+      uploadPromises.push(
+        supabase.storage.from("links").upload(
+          `${newId}/image`,
+          await ogImage.image,
+          ogImage.contentType
+            ? {
+                contentType: ogImage.contentType,
+              }
+            : {}
+        )
       );
-      if (ogImageUpload.error) {
-        return {
-          error: "Failed to upload image",
-        };
-      }
-      ogImageUrl = ogImageUpload.data.fullPath;
     }
     if (favicon) {
-      const faviconUpload = await supabase.storage.from("links").upload(
-        `${newId}/favicon`,
-        await favicon.image,
-        favicon.contentType
-          ? {
-              contentType: favicon.contentType,
-            }
-          : {}
+      uploadPromises.push(
+        supabase.storage.from("links").upload(
+          `${newId}/favicon`,
+          await favicon.image,
+          favicon.contentType
+            ? {
+                contentType: favicon.contentType,
+              }
+            : {}
+        )
       );
-      if (faviconUpload.error) {
-        return {
-          error: "Failed to upload favicon",
-        };
-      }
-      faviconUrl = faviconUpload.data.fullPath;
     }
+
+    const uploadResults = await Promise.all(uploadPromises);
+
+    const ogImageUrl =
+      uploadResults.find((result) => result.data?.path.endsWith("/image"))?.data
+        ?.fullPath || null;
+    const faviconUrl =
+      uploadResults.find((result) => result.data?.path.endsWith("/favicon"))
+        ?.data?.fullPath || null;
 
     const maxPositionOfList = await supabase
       .from("links")
