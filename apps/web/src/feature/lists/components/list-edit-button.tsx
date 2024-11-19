@@ -1,5 +1,5 @@
 "use client";
-import ListEditDialog from "@/components/lists/list-edit-dialog";
+import ListEditDialog from "@/feature/lists/components/list-edit-dialog";
 import { Button } from "@repo/ui/button";
 import { Dialog, DialogTrigger } from "@repo/ui/dialog";
 import { Edit2 } from "lucide-react";

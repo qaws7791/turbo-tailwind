@@ -1,8 +1,8 @@
 import AddLinkButton from "@/feature/links/components/add-link-button";
 import LinksView from "@/feature/links/components/links-view";
-import ListDeleteButton from "@/components/lists/list-delete-button";
-import ListEditButton from "@/components/lists/list-edit-button";
-import ListShareDialog from "@/components/lists/list-share-dialog";
+import ListDeleteButton from "@/feature/lists/components/list-delete-button";
+import ListEditButton from "@/feature/lists/components/list-edit-button";
+import ListShareDialog from "@/feature/lists/components/list-share-dialog";
 import linkQueries from "@/feature/links/hooks/queries";
 import listQueries from "@/feature/lists/hooks/queries";
 import { getLinks } from "@/lib/supabase/server/links/links.queries";
