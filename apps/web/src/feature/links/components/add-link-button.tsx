@@ -1,6 +1,5 @@
 "use client";
-import { createLink } from "@/api/apis/link.api";
-import linkQueries from "@/feature/links/hooks/queries";
+import { useCreateLinkMutation } from "@/feature/links/hooks/mutations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/button";
 import {
@@ -16,7 +15,6 @@ import { ErrorMessage } from "@repo/ui/form";
 import { Input } from "@repo/ui/input";
 import { Label } from "@repo/ui/label";
 import { toast } from "@repo/ui/toaster";
-import { useQueryClient } from "@tanstack/react-query";
 import { Loader2Icon, PlusIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -33,7 +31,7 @@ const addLinkSchema = z.object({
 type AddLinkForm = z.infer<typeof addLinkSchema>;
 
 export default function AddLinkButton({ listId }: AddLinkButtonProps) {
-  const queryClient = useQueryClient();
+  const createLink = useCreateLinkMutation();
   const [open, setOpen] = useState(false);
   const { reset, register, formState, handleSubmit } = useForm<AddLinkForm>({
     resolver: zodResolver(addLinkSchema),
@@ -42,23 +40,21 @@ export default function AddLinkButton({ listId }: AddLinkButtonProps) {
     },
   });
   const onSubmit = handleSubmit(async (data: AddLinkForm) => {
-    try {
-      void (await createLink({
-        url: data.url,
-        listId,
-      }));
-
-      await queryClient.invalidateQueries({
-        queryKey: linkQueries.list(listId).queryKey,
-      });
-      toast.success("성공적으로 링크를 추가했습니다.");
-      setOpen(false);
-      reset();
-    } catch (error) {
-      toast.error(
-        "링크를 추가하는 중에 문제가 발생했습니다. 다시 시도해주세요."
-      );
-    }
+    createLink.mutate(
+      { listId, url: data.url },
+      {
+        onSuccess: () => {
+          toast.success("성공적으로 링크를 추가했습니다.");
+          setOpen(false);
+          reset();
+        },
+        onError: () => {
+          toast.error(
+            "링크를 추가하는 중에 문제가 발생했습니다. 다시 시도해주세요."
+          );
+        },
+      }
+    );
   });
 
   return (

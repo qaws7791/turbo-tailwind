@@ -1,6 +1,5 @@
 "use client";
-import { deleteLink } from "@/api/apis/link.api";
-import type { Link } from "@/api/models";
+import { useDeleteLinkMutation } from "@/feature/links/hooks/mutations";
 import { Button } from "@repo/ui/button";
 import {
   DialogClose,
@@ -11,7 +10,6 @@ import {
   DialogTitle,
 } from "@repo/ui/dialog";
 import { toast } from "@repo/ui/toaster";
-import { useQueryClient } from "@tanstack/react-query";
 
 export default function LinkDeleteDialog({
   id,
@@ -22,21 +20,20 @@ export default function LinkDeleteDialog({
   listId: string;
   onClose?: () => void;
 }): JSX.Element {
-  const queryClient = useQueryClient();
-  const handleDelete = async () => {
-    try {
-      await deleteLink({ id });
-      queryClient.setQueryData(
-        ["lists", listId, "links"],
-        (oldData: Link[] | undefined) => {
-          return oldData?.filter((link) => link.id !== id);
-        }
-      );
-      onClose?.();
-      toast.success("Link deleted");
-    } catch (error) {
-      toast.error("Error deleting link");
-    }
+  const deleteLink = useDeleteLinkMutation();
+  const handleDelete = () => {
+    deleteLink.mutate(
+      { id },
+      {
+        onSuccess: () => {
+          toast.success("링크가 삭제되었습니다.");
+          onClose?.();
+        },
+        onError: () => {
+          toast.error("링크 삭제 중 오류가 발생했습니다.");
+        },
+      }
+    );
   };
 
   return (

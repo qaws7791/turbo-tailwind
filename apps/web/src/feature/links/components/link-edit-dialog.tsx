@@ -1,6 +1,6 @@
 "use client";
-import { updateLink } from "@/api/apis/link.api";
 import type { Link } from "@/api/models";
+import { useUpdateLinkMutation } from "@/feature/links/hooks/mutations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/button";
 import {
@@ -15,7 +15,6 @@ import { ErrorMessage } from "@repo/ui/form";
 import { Input } from "@repo/ui/input";
 import { Label } from "@repo/ui/label";
 import { toast } from "@repo/ui/toaster";
-import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -33,7 +32,7 @@ interface LinkEditDialogProps {
 }
 
 export default function LinkEditDialog({ link, onClose }: LinkEditDialogProps) {
-  const queryClient = useQueryClient();
+  const updateLink = useUpdateLinkMutation();
   const { reset, register, formState, handleSubmit } = useForm<LinkEditData>({
     resolver: zodResolver(linkEditSchema),
     defaultValues: {
@@ -42,27 +41,19 @@ export default function LinkEditDialog({ link, onClose }: LinkEditDialogProps) {
     },
   });
 
-  const onSubmit = handleSubmit(async (data: LinkEditData) => {
-    try {
-      const updatedLink = await updateLink({
-        id: link.id,
-        title: data.title,
-        memo: data.memo,
-      });
-      queryClient.setQueryData(
-        ["lists", link.list, "links"],
-        (oldData: Link[] | undefined) => {
-          if (!oldData) return;
-          return oldData.map((oldLink) =>
-            oldLink.id === updatedLink.id ? updatedLink : oldLink
-          );
-        }
-      );
-      toast.success("링크를 수정했습니다.");
-      onClose?.();
-    } catch (error) {
-      toast.error("링크를 수정하는 중에 오류가 발생했습니다.");
-    }
+  const onSubmit = handleSubmit((data: LinkEditData) => {
+    updateLink.mutate(
+      { id: link.id, title: data.title, memo: data.memo },
+      {
+        onSuccess: () => {
+          toast.success("링크를 수정했습니다.");
+          onClose?.();
+        },
+        onError: () => {
+          toast.error("링크를 수정하는 중에 오류가 발생했습니다.");
+        },
+      }
+    );
   });
 
   useEffect(() => {
