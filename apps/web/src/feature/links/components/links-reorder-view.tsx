@@ -1,5 +1,5 @@
 "use client";
-import LinkMenu from "@/components/links/link-menu";
+import LinkMenu from "@/feature/links/components/link-menu";
 import linkQueries from "@/feature/links/hooks/queries";
 import { Button } from "@repo/ui/button";
 import { useSuspenseQuery } from "@tanstack/react-query";

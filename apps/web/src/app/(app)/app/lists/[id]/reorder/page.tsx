@@ -1,5 +1,5 @@
-import AddLinkButton from "@/components/links/add-link-button";
-import LinksReorderView from "@/components/links/links-reorder-view";
+import AddLinkButton from "@/feature/links/components/add-link-button";
+import LinksReorderView from "@/feature/links/components/links-reorder-view";
 import linkQueries from "@/feature/links/hooks/queries";
 import { getLinks } from "@/lib/supabase/server/links/links.queries";
 import { getList } from "@/lib/supabase/server/lists/lists.queries";
