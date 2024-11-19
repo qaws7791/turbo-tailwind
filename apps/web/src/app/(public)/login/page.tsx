@@ -7,10 +7,10 @@ import { redirect } from "next/navigation";
 export default async function LoginPage() {
   const supabase = await createClient();
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  if (session) {
-    redirect("/app");
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (user) {
+    return redirect("/app");
   }
 
   return (
