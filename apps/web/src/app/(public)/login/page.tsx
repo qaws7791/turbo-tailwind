@@ -1,5 +1,5 @@
-import EmailLoginForm from "@/components/auth/email-login-form";
-import GoogleLoginButton from "@/components/auth/google-login-button";
+import EmailLoginForm from "@/feature/auth/components/email-login-form";
+import GoogleLoginButton from "@/feature/auth/components/google-login-button";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
