@@ -1,11 +1,13 @@
 "use client";
+import { reorderList } from "@/api/apis/list.api";
 import LinkMenu from "@/feature/links/components/link-menu";
 import linkQueries from "@/feature/links/hooks/queries";
 import { Button } from "@repo/ui/button";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { ImageIcon, LinkIcon } from "lucide-react";
+import { ImageIcon, LinkIcon, SaveIcon } from "lucide-react";
 import { Reorder } from "motion/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface LinksReorderViewProps {
@@ -15,21 +17,27 @@ interface LinksReorderViewProps {
 export default function LinksReorderView({
   listId,
 }: LinksReorderViewProps): JSX.Element {
+  const router = useRouter();
   const linkQuery = useSuspenseQuery(linkQueries.list(listId));
   const [items, setItems] = useState(linkQuery.data);
 
   const handleSave = async () => {
-    await fetch(`/api/lists/${listId}/reorder`, {
-      method: "POST",
-      body: JSON.stringify({
-        links: items.map((link) => ({ id: link.id })),
-      }),
+    await reorderList({
+      id: listId,
+      links: items.map((link) => ({ id: link.id })),
     });
+    router.push(`/app/lists/${listId}`);
   };
 
   return (
     <div>
-      <Button onClick={handleSave}>저장하기</Button>
+      <div className="flex items-center justify-between mt-4 p-4">
+        <h2 className="text-xl font-medium">링크 재정렬</h2>
+        <Button onClick={handleSave}>
+          <SaveIcon className="size-4" />
+          저장하기
+        </Button>
+      </div>
       <Reorder.Group
         values={items}
         onReorder={setItems}

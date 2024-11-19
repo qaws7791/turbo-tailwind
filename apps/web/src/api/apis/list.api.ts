@@ -78,3 +78,17 @@ export async function updateListShareState({
     })
     .json();
 }
+
+export async function reorderList({
+  id,
+  links,
+}: {
+  id: string;
+  links: { id: string }[];
+}) {
+  return httpClient.post<void>(`lists/${id}/reorder`, {
+    json: {
+      links,
+    },
+  });
+}
