@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element -- Using img element for better control over image rendering */
 "use client";
-import { fetchLists } from "@/api/apis/list.api";
+import listQueries from "@/feature/lists/hooks/queries";
 import { Button } from "@repo/ui/button";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { Album, Lock, UsersRound } from "lucide-react";
@@ -8,16 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function ListsView(): JSX.Element {
-  const listQuery = useSuspenseInfiniteQuery({
-    queryKey: ["lists"],
-    queryFn: ({ pageParam = undefined }) => {
-      return fetchLists({ cursor: pageParam });
-    },
-    getNextPageParam: (lastPage) => {
-      return lastPage.length === 20 ? lastPage[lastPage.length - 1].id : null;
-    },
-    initialPageParam: null as string | null,
-  });
+  const listQuery = useSuspenseInfiniteQuery(listQueries.list());
 
   const items = listQuery.data.pages.flatMap((page) => page);
   return (

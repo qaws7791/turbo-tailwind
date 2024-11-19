@@ -3,6 +3,8 @@ import LinksView from "@/components/links/links-view";
 import ListDeleteButton from "@/components/lists/list-delete-button";
 import ListEditButton from "@/components/lists/list-edit-button";
 import ListShareDialog from "@/components/lists/list-share-dialog";
+import linkQueries from "@/feature/links/hooks/queries";
+import listQueries from "@/feature/lists/hooks/queries";
 import { getLinks } from "@/lib/supabase/server/links/links.queries";
 import { getList } from "@/lib/supabase/server/lists/lists.queries";
 import { Button } from "@repo/ui/button";
@@ -26,19 +28,18 @@ export default async function ListDetailPage({ params }: ListDetailPageProps) {
 
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: ["lists", id],
-    queryFn: () => {
-      return getList(id);
-    },
-  });
+  const queries = [
+    queryClient.prefetchQuery({
+      queryKey: [...listQueries.details(), id],
+      queryFn: () => getList(id),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: [...linkQueries.lists(), id],
+      queryFn: () => getLinks(id),
+    }),
+  ];
 
-  await queryClient.prefetchQuery({
-    queryKey: ["lists", id, "links"],
-    queryFn: () => {
-      return getLinks(id);
-    },
-  });
+  await Promise.all(queries);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

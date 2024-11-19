@@ -1,5 +1,6 @@
 import AddLinkButton from "@/components/links/add-link-button";
 import LinksReorderView from "@/components/links/links-reorder-view";
+import linkQueries from "@/feature/links/hooks/queries";
 import { getLinks } from "@/lib/supabase/server/links/links.queries";
 import { getList } from "@/lib/supabase/server/lists/lists.queries";
 import {
@@ -23,7 +24,7 @@ export default async function ListReorderPage({
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["lists", id, "links"],
+    queryKey: [...linkQueries.lists(), id],
     queryFn: () => {
       return getLinks(id);
     },

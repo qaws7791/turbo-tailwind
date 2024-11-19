@@ -1,5 +1,6 @@
 import ListCreateButton from "@/components/lists/list-create-button";
 import ListsView from "@/components/lists/lists-view";
+import listQueries from "@/feature/lists/hooks/queries";
 import { getLists } from "@/lib/supabase/server/lists/lists.queries";
 import {
   dehydrate,

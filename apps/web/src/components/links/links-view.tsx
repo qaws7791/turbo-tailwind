@@ -1,6 +1,6 @@
 "use client";
-import { fetchLinks } from "@/api/apis/link.api";
 import LinkMenu from "@/components/links/link-menu";
+import linkQueries from "@/feature/links/hooks/queries";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ImageIcon, LinkIcon } from "lucide-react";
 import Image from "next/image";
@@ -10,12 +10,7 @@ interface LinksViewProps {
 }
 
 export default function LinksView({ listId }: LinksViewProps): JSX.Element {
-  const linkQuery = useSuspenseQuery({
-    queryKey: ["lists", listId, "links"],
-    queryFn: () => {
-      return fetchLinks({ listId });
-    },
-  });
+  const linkQuery = useSuspenseQuery(linkQueries.list(listId));
 
   return (
     <div className="flex gap-3 flex-col">

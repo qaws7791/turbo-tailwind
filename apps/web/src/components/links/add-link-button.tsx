@@ -1,5 +1,6 @@
 "use client";
 import { createLink } from "@/api/apis/link.api";
+import linkQueries from "@/feature/links/hooks/queries";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/button";
 import {
@@ -48,7 +49,7 @@ export default function AddLinkButton({ listId }: AddLinkButtonProps) {
       }));
 
       await queryClient.invalidateQueries({
-        queryKey: ["lists", listId, "links"],
+        queryKey: linkQueries.list(listId).queryKey,
       });
       toast.success("성공적으로 링크를 추가했습니다.");
       setOpen(false);

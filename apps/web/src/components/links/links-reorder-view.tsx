@@ -1,6 +1,6 @@
 "use client";
-import { fetchLinks } from "@/api/apis/link.api";
 import LinkMenu from "@/components/links/link-menu";
+import linkQueries from "@/feature/links/hooks/queries";
 import { Button } from "@repo/ui/button";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ImageIcon, LinkIcon } from "lucide-react";
@@ -15,12 +15,7 @@ interface LinksReorderViewProps {
 export default function LinksReorderView({
   listId,
 }: LinksReorderViewProps): JSX.Element {
-  const linkQuery = useSuspenseQuery({
-    queryKey: ["lists", listId, "links"],
-    queryFn: () => {
-      return fetchLinks({ listId });
-    },
-  });
+  const linkQuery = useSuspenseQuery(linkQueries.list(listId));
   const [items, setItems] = useState(linkQuery.data);
 
   const handleSave = async () => {

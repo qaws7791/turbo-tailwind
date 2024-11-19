@@ -1,5 +1,6 @@
 "use client";
 import { fetchList, updateListShareState } from "@/api/apis/list.api";
+import listQueries from "@/feature/lists/hooks/queries";
 import { clientEnv } from "@/lib/env";
 import { Button } from "@repo/ui/button";
 import {
@@ -30,15 +31,12 @@ export default function ListShareDialog({ listId }: ListShareDialogProps) {
     mutationFn: updateListShareState,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["lists", listId],
+        queryKey: listQueries.detail(listId).queryKey,
       });
       toast.success("리스트가 수정되었습니다.");
     },
   });
-  const { data: list } = useSuspenseQuery({
-    queryKey: ["lists", listId],
-    queryFn: () => fetchList({ id: listId }),
-  });
+  const { data: list } = useSuspenseQuery(listQueries.detail(listId));
 
   const checked = list.public_slug === null ? false : true;
 
