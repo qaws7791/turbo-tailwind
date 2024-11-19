@@ -59,18 +59,22 @@ export async function deleteList({ id }: DeleteListRequest) {
 }
 
 export async function createList({ type }: CreateListRequest) {
-  return httpClient.post<List>(`lists`, {
-    json: {
-      type,
-    },
-  });
+  return httpClient
+    .post<List>(`lists`, {
+      json: {
+        type,
+      },
+    })
+    .json();
 }
 
 export async function updateListShareState({
   id,
   ...data
 }: UpdateListShareStateRequest) {
-  return httpClient.post<List>(`lists/${id}/share`, {
-    json: data,
-  });
+  return httpClient
+    .post<List>(`lists/${id}/share`, {
+      json: data,
+    })
+    .json();
 }
