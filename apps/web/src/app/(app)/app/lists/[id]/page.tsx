@@ -14,8 +14,9 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import { Lock, Share2Icon, UsersRound } from "lucide-react";
+import { ListStart, Lock, Share2Icon, UsersRound } from "lucide-react";
 import { Suspense } from "react";
+import Link from "next/link";
 
 interface ListDetailPageProps {
   params: Promise<{ id: string }>;
@@ -76,7 +77,12 @@ export default async function ListDetailPage({ params }: ListDetailPageProps) {
 
         <div className="flex items-center justify-between mt-4 p-4">
           <h2 className="text-xl font-medium">링크 목록</h2>
-          <AddLinkButton listId={id} />
+          <div className="flex gap-2">
+            <AddLinkButton listId={id} />
+            <Button asChild variant="outline" size="sm">
+              <Link href={`/app/lists/${id}/reorder`}> 순서 변경</Link>
+            </Button>
+          </div>
         </div>
         <Suspense fallback={<div>Loading...</div>}>
           <LinksView listId={id} />

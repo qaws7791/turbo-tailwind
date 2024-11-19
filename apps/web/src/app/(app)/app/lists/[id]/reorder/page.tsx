@@ -33,14 +33,7 @@ export default async function ListReorderPage({
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div>
-        <div className="p-4">
-          <h1 className="text-3xl font-medium">{list.title}</h1>
-        </div>
-
-        <div className="flex items-center justify-between mt-4 p-4">
-          <h2 className="text-xl font-medium">Links</h2>
-          <AddLinkButton listId={id} />
-        </div>
+        <h1 className="sr-only">{list.title} 링크 재정렬</h1>
         <Suspense fallback={<div>Loading...</div>}>
           <LinksReorderView listId={id} />
         </Suspense>
