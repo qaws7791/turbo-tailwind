@@ -40,7 +40,7 @@ export async function fetchLists({ cursor }: FetchListsRequest) {
   }
 
   return httpClient
-    .get<FetchListsResponse>(`lists?${searchParams.toString()}}`)
+    .get<FetchListsResponse>(`lists${searchParams.toString()}`)
     .json();
 }
 
