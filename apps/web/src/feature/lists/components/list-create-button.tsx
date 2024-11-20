@@ -1,5 +1,4 @@
 "use client";
-import { createList } from "@/api/apis/list.api";
 import { useCreateListMutation } from "@/feature/lists/hooks/mutations";
 import { Button } from "@repo/ui/button";
 import { toast } from "@repo/ui/toaster";

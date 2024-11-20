@@ -1,8 +1,8 @@
 import "@repo/ui/styles.css";
 import type { Metadata } from "next";
 // 디자인 시스템 스타일보다 뒤에 위치해야 합니다.
-import "./globals.css";
 import { siteConfig } from "@/lib/config.ts";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: siteConfig.siteName,

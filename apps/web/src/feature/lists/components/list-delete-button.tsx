@@ -1,5 +1,4 @@
 "use client";
-import { deleteList } from "@/api/apis/list.api";
 import { useDeleteListMutation } from "@/feature/lists/hooks/mutations";
 import { Button } from "@repo/ui/button";
 import {

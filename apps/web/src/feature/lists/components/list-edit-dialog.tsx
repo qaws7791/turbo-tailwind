@@ -1,6 +1,5 @@
 "use client";
 import { fetchList } from "@/api/apis/list.api";
-import { useUpdateLinkMutation } from "@/feature/links/hooks/mutations";
 import { useUpdateListMutation } from "@/feature/lists/hooks/mutations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/button";

@@ -1,9 +1,9 @@
 import AddLinkButton from "@/feature/links/components/add-link-button";
 import LinksView from "@/feature/links/components/links-view";
+import linkQueries from "@/feature/links/hooks/queries";
 import ListDeleteButton from "@/feature/lists/components/list-delete-button";
 import ListEditButton from "@/feature/lists/components/list-edit-button";
 import ListShareDialog from "@/feature/lists/components/list-share-dialog";
-import linkQueries from "@/feature/links/hooks/queries";
 import listQueries from "@/feature/lists/hooks/queries";
 import { getLinks } from "@/lib/supabase/server/links/links.queries";
 import { getList } from "@/lib/supabase/server/lists/lists.queries";
@@ -14,9 +14,9 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import { ListStart, Lock, Share2Icon, UsersRound } from "lucide-react";
-import { Suspense } from "react";
+import { Lock, Share2Icon, UsersRound } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 
 interface ListDetailPageProps {
   params: Promise<{ id: string }>;
