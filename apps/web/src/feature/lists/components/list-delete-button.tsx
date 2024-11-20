@@ -1,5 +1,6 @@
 "use client";
 import { deleteList } from "@/api/apis/list.api";
+import { useDeleteListMutation } from "@/feature/lists/hooks/mutations";
 import { Button } from "@repo/ui/button";
 import {
   Dialog,
@@ -16,15 +17,21 @@ import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function ListDeleteButton({ id }: { id: string }): JSX.Element {
+  const deleteList = useDeleteListMutation();
   const router = useRouter();
   const handleDelete = async () => {
-    try {
-      await deleteList({ id });
-      toast.success("List deleted");
-      router.push("/app");
-    } catch (error) {
-      toast.error("Error deleting list");
-    }
+    deleteList.mutate(
+      { id },
+      {
+        onSuccess: () => {
+          toast.success("리스트를 삭제했습니다.");
+          router.push("/app");
+        },
+        onError: () => {
+          toast.error("리스트 삭제 중 오류가 발생했습니다.");
+        },
+      }
+    );
   };
 
   return (

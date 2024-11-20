@@ -1,5 +1,7 @@
 "use client";
-import { fetchList, updateList } from "@/api/apis/list.api";
+import { fetchList } from "@/api/apis/list.api";
+import { useUpdateLinkMutation } from "@/feature/links/hooks/mutations";
+import { useUpdateListMutation } from "@/feature/lists/hooks/mutations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/button";
 import {
@@ -34,6 +36,7 @@ export default function ListEditDialog({
   listId,
   onClose,
 }: ListEditDialogProps) {
+  const updateList = useUpdateListMutation();
   const router = useRouter();
   const { reset, register, formState, handleSubmit, control } =
     useForm<ListEditData>({
@@ -45,18 +48,23 @@ export default function ListEditDialog({
     });
 
   const onSubmit = handleSubmit(async (data: ListEditData) => {
-    try {
-      await updateList({
+    updateList.mutate(
+      {
         id: listId,
         title: data.title,
         description: data.description,
-      });
-      toast.success("리스트를 수정했습니다.");
-      onClose?.();
-      router.refresh();
-    } catch (error) {
-      toast.error("리스트를 수정하는 중에 오류가 발생했습니다.");
-    }
+      },
+      {
+        onSuccess: () => {
+          toast.success("리스트를 수정했습니다.");
+          onClose?.();
+          router.refresh();
+        },
+        onError: () => {
+          toast.error("리스트를 수정하는 중에 오류가 발생했습니다.");
+        },
+      }
+    );
   });
 
   useEffect(() => {

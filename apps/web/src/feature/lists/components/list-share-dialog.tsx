@@ -1,5 +1,5 @@
 "use client";
-import { fetchList, updateListShareState } from "@/api/apis/list.api";
+import { useUpdateListShareStateMutation } from "@/feature/lists/hooks/mutations";
 import listQueries from "@/feature/lists/hooks/queries";
 import { clientEnv } from "@/lib/env";
 import { Button } from "@repo/ui/button";
@@ -15,27 +15,14 @@ import { Input } from "@repo/ui/input";
 import { Label } from "@repo/ui/label";
 import { Switch } from "@repo/ui/switch";
 import { toast } from "@repo/ui/toaster";
-import {
-  useMutation,
-  useQueryClient,
-  useSuspenseQuery,
-} from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 interface ListShareDialogProps {
   listId: string;
 }
 
 export default function ListShareDialog({ listId }: ListShareDialogProps) {
-  const queryClient = useQueryClient();
-  const updateListState = useMutation({
-    mutationFn: updateListShareState,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: listQueries.detail(listId).queryKey,
-      });
-      toast.success("리스트가 수정되었습니다.");
-    },
-  });
+  const updateListState = useUpdateListShareStateMutation();
   const { data: list } = useSuspenseQuery(listQueries.detail(listId));
 
   const checked = list.public_slug === null ? false : true;
@@ -53,6 +40,23 @@ export default function ListShareDialog({ listId }: ListShareDialogProps) {
     toast.success("공유 URL이 복사되었습니다.");
   };
 
+  const handleCheckedChange = (checked: boolean) => {
+    updateListState.mutate(
+      {
+        id: listId,
+        type: checked ? "public" : "private",
+      },
+      {
+        onSuccess: () => {
+          toast.success("리스트가 업데이트 되었습니다.");
+        },
+        onError: () => {
+          toast.error("리스트 업데이트에 실패했습니다.");
+        },
+      }
+    );
+  };
+
   return (
     <DialogContent className="sm:max-w-[500px]">
       <DialogHeader>
@@ -68,12 +72,7 @@ export default function ListShareDialog({ listId }: ListShareDialogProps) {
           <Switch
             checked={checked}
             id="public"
-            onCheckedChange={(checked) => {
-              updateListState.mutate({
-                id: listId,
-                type: checked ? "public" : "private",
-              });
-            }}
+            onCheckedChange={handleCheckedChange}
             disabled={updateListState.isPending}
           />
         </div>

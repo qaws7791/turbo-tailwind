@@ -2,7 +2,9 @@
 import { reorderList } from "@/api/apis/list.api";
 import LinkMenu from "@/feature/links/components/link-menu";
 import linkQueries from "@/feature/links/hooks/queries";
+import { useReorderListMutation } from "@/feature/lists/hooks/mutations";
 import { Button } from "@repo/ui/button";
+import { toast } from "@repo/ui/toaster";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ImageIcon, LinkIcon, SaveIcon } from "lucide-react";
 import { Reorder } from "motion/react";
@@ -17,16 +19,26 @@ interface LinksReorderViewProps {
 export default function LinksReorderView({
   listId,
 }: LinksReorderViewProps): JSX.Element {
+  const reorderList = useReorderListMutation();
   const router = useRouter();
   const linkQuery = useSuspenseQuery(linkQueries.list(listId));
   const [items, setItems] = useState(linkQuery.data);
 
   const handleSave = async () => {
-    await reorderList({
-      id: listId,
-      links: items.map((link) => ({ id: link.id })),
-    });
-    router.push(`/app/lists/${listId}`);
+    reorderList.mutate(
+      {
+        id: listId,
+        links: items.map((link) => ({ id: link.id })),
+      },
+      {
+        onSuccess: () => {
+          router.push(`/app/lists/${listId}`);
+        },
+        onError: () => {
+          toast.error("링크 재정렬에 실패했습니다.");
+        },
+      }
+    );
   };
 
   return (
