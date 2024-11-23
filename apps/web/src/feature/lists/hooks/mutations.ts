@@ -1,5 +1,5 @@
 import {
-  createList,
+  createEmptyList,
   deleteList,
   reorderList,
   updateList,
@@ -22,7 +22,7 @@ export const useDeleteListMutation = () => {
 
 export const useCreateListMutation = () => {
   return useMutation({
-    mutationFn: createList,
+    mutationFn: createEmptyList,
   });
 };
 

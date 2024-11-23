@@ -24,10 +24,6 @@ export interface DeleteListRequest {
   id: string;
 }
 
-export interface CreateListRequest {
-  type: "empty";
-}
-
 export interface UpdateListShareStateRequest {
   id: string;
   type: "public" | "private";
@@ -58,11 +54,11 @@ export async function deleteList({ id }: DeleteListRequest) {
   return httpClient.delete<void>(`lists/${id}`);
 }
 
-export async function createList({ type }: CreateListRequest) {
+export async function createEmptyList() {
   return httpClient
     .post<List>(`lists`, {
       json: {
-        type,
+        type: "empty",
       },
     })
     .json();
