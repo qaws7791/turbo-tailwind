@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { generateSlug } from "@/lib/utils/generator";
+import { z } from "zod";
 
 export const uploadUserAvatar = async (file: File) => {
   // 1. check file type and size
@@ -43,4 +44,35 @@ export const uploadUserAvatar = async (file: File) => {
   }
 
   return data;
+};
+
+export const updateUserProfileSchema = z.object({
+  avatar_url: z.string().optional(),
+  username: z.string().min(1).max(20).optional(),
+});
+
+export type UpdateUserProfileInput = z.infer<typeof updateUserProfileSchema>;
+
+export const updateUserProfile = async (data: UpdateUserProfileInput) => {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    throw new Error("Error getting user");
+  }
+
+  const { data: updatedUser, error: updateError } = await supabase
+    .from("users")
+    .update(data)
+    .eq("id", user.id);
+
+  if (updateError) {
+    throw new Error("Error updating user");
+  }
+
+  return true;
 };
