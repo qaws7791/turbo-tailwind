@@ -24,5 +24,8 @@
         "eslint": "9"
       }
     }
+  },
+  "overrides": {
+    "@types/react": "18.3.12"
   }
 }
