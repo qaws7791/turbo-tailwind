@@ -29,7 +29,7 @@ export interface UpdateListShareStateRequest {
   type: "public" | "private";
 }
 
-export async function fetchLists({ cursor }: FetchListsRequest) {
+export function fetchLists({ cursor }: FetchListsRequest) {
   const searchParams = new URLSearchParams();
   if (cursor) {
     searchParams.set("cursor", cursor);
@@ -40,21 +40,21 @@ export async function fetchLists({ cursor }: FetchListsRequest) {
     .json();
 }
 
-export async function updateList({ id, ...data }: UpdateListsRequest) {
+export function updateList({ id, ...data }: UpdateListsRequest) {
   return httpClient.put<void>(`lists/${id}`, {
     json: data,
   });
 }
 
-export async function fetchList({ id }: FetchListRequest) {
+export function fetchList({ id }: FetchListRequest) {
   return httpClient.get<List>(`lists/${id}`).json();
 }
 
-export async function deleteList({ id }: DeleteListRequest) {
+export function deleteList({ id }: DeleteListRequest) {
   return httpClient.delete<void>(`lists/${id}`);
 }
 
-export async function createEmptyList() {
+export function createEmptyList() {
   return httpClient
     .post<List>(`lists`, {
       json: {
@@ -64,7 +64,7 @@ export async function createEmptyList() {
     .json();
 }
 
-export async function updateListShareState({
+export function updateListShareState({
   id,
   ...data
 }: UpdateListShareStateRequest) {
@@ -75,7 +75,7 @@ export async function updateListShareState({
     .json();
 }
 
-export async function reorderList({
+export function reorderList({
   id,
   links,
 }: {
