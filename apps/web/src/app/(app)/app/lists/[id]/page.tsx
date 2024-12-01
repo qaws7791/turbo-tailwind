@@ -14,7 +14,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import { Lock, Share2Icon, UsersRound } from "lucide-react";
+import { ArrowUpDown, Lock, Share2Icon, UsersRound } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -80,7 +80,10 @@ export default async function ListDetailPage({ params }: ListDetailPageProps) {
           <div className="flex gap-2">
             <AddLinkButton listId={id} />
             <Button asChild variant="outline" size="sm">
-              <Link href={`/app/lists/${id}/reorder`}> 순서 변경</Link>
+              <Link href={`/app/lists/${id}/reorder`}>
+                <ArrowUpDown className="size-4" />
+                순서 변경
+              </Link>
             </Button>
           </div>
         </div>
