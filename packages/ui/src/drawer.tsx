@@ -43,11 +43,8 @@ const DrawerOverlay = React.forwardRef<
 ));
 DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
 
-type DrawerContentProps = React.ComponentPropsWithoutRef<
-  typeof DrawerPrimitive.Content
-> & {
+type DrawerContentProps = React.ComponentPropsWithoutRef<"div"> & {
   direction?: "left" | "right";
-  children: React.ReactNode;
 };
 
 const DrawerContent = React.forwardRef<
