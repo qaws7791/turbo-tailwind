@@ -18,3 +18,11 @@ export function uploadProfileAvatar({ file }: UploadProfileAvatarRequest) {
     })
     .json();
 }
+
+export function updateProfile(body: { avatar_url?: string }) {
+  return httpClient
+    .patch(`profiles`, {
+      json: body,
+    })
+    .json();
+}
