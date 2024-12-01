@@ -6,15 +6,11 @@ import { Drawer as DrawerPrimitive } from "vaul";
 import type { RadixUISlot } from "./types";
 import { cn } from "./utils";
 
-type DrawerProps = React.ComponentProps<typeof DrawerPrimitive.Root> & {
-  direction?: "left" | "right";
-};
-
 function Drawer({
   shouldScaleBackground = true,
   direction = "left",
   ...props
-}: DrawerProps): JSX.Element {
+}: React.ComponentProps<typeof DrawerPrimitive.Root>): JSX.Element {
   return (
     <DrawerPrimitive.Root
       direction={direction}
