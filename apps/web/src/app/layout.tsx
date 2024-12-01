@@ -5,32 +5,35 @@ import { siteConfig } from "@/lib/config.ts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: siteConfig.siteName,
-  description: siteConfig.siteDescription,
+  title: {
+    template: `%s | ${siteConfig.siteName.ko}`,
+    default: siteConfig.siteName.ko,
+  },
+  description: siteConfig.siteDescription.ko,
   openGraph: {
     type: "website",
     locale: "ko_KR",
     url: siteConfig.siteUrl,
-    siteName: siteConfig.siteName,
-    title: siteConfig.siteName,
-    description: siteConfig.siteDescription,
+    siteName: siteConfig.siteName.ko,
+    title: siteConfig.siteName.ko,
+    description: siteConfig.siteDescription.ko,
     images: [
       {
         url: `${siteConfig.siteUrl}/logo-256.png`,
         width: 256,
         height: 256,
-        alt: siteConfig.siteName,
+        alt: siteConfig.siteName.ko,
       },
     ],
   },
   twitter: {
-    title: siteConfig.siteName,
-    description: siteConfig.siteDescription,
+    title: siteConfig.siteName.ko,
+    description: siteConfig.siteDescription.ko,
     card: "summary",
     images: [
       {
         url: `${siteConfig.siteUrl}/logo-256.png`,
-        alt: siteConfig.siteName,
+        alt: siteConfig.siteName.ko,
       },
     ],
   },

@@ -6,7 +6,12 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
+import { Metadata } from "next";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "홈",
+};
 
 export default async function AppMainPage(): Promise<JSX.Element> {
   const queryClient = new QueryClient();

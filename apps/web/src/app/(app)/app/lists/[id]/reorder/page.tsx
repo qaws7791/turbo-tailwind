@@ -1,4 +1,3 @@
-import AddLinkButton from "@/feature/links/components/add-link-button";
 import LinksReorderView from "@/feature/links/components/links-reorder-view";
 import linkQueries from "@/feature/links/hooks/queries";
 import { getLinks } from "@/lib/supabase/server/links/links.queries";
@@ -8,11 +7,16 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
+import { Metadata } from "next";
 import { Suspense } from "react";
 
 interface ListReorderPageProps {
   params: Promise<{ id: string }>;
 }
+
+export const metadata: Metadata = {
+  title: "링크 순서 재정렬",
+};
 
 export default async function ListReorderPage({
   params,

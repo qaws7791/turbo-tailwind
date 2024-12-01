@@ -1,8 +1,13 @@
 import EmailLoginForm from "@/feature/auth/components/email-login-form";
 import GoogleLoginButton from "@/feature/auth/components/google-login-button";
 import { createClient } from "@/lib/supabase/server";
+import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "로그인",
+};
 
 export default async function LoginPage() {
   const supabase = await createClient();

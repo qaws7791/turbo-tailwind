@@ -1,5 +1,6 @@
 import { getPublicListWithLinks } from "@/lib/supabase/server/lists/lists.queries";
 import { ImageIcon, LinkIcon } from "lucide-react";
+import { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 interface PublicSharePageProps {
@@ -8,6 +9,26 @@ interface PublicSharePageProps {
 
 export const revalidate = 3600;
 export const dynamic = "force-static";
+
+export async function generateMetadata(
+  { params }: PublicSharePageProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const id = (await params).id;
+
+  const list = await getPublicListWithLinks(id);
+
+  const previousImages = (await parent).openGraph?.images || [];
+
+  const firstImage = list.links.find((link) => link.preview_url);
+  const images = firstImage?.preview_url ? [firstImage.preview_url] : [];
+  return {
+    title: list.title,
+    openGraph: {
+      images: [...images, ...previousImages],
+    },
+  };
+}
 
 export default async function PublicSharePage({
   params,

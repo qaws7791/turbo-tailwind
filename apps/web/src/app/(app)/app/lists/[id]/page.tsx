@@ -15,11 +15,24 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { ArrowUpDown, Lock, Share2Icon, UsersRound } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 
 interface ListDetailPageProps {
   params: Promise<{ id: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: ListDetailPageProps): Promise<Metadata> {
+  const id = (await params).id;
+
+  const list = await getList(id);
+
+  return {
+    title: list.title,
+  };
 }
 
 export default async function ListDetailPage({ params }: ListDetailPageProps) {
