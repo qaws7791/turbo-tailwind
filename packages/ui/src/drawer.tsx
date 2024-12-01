@@ -76,7 +76,7 @@ DrawerContent.displayName = "DrawerContent";
 function DrawerHeader({
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>): JSX.Element {
+}: React.ComponentPropsWithoutRef<"div">): JSX.Element {
   return (
     <div
       className={cn(
@@ -92,7 +92,7 @@ DrawerHeader.displayName = "DrawerHeader";
 function DrawerFooter({
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>): JSX.Element {
+}: React.ComponentPropsWithoutRef<"div">): JSX.Element {
   return (
     <div
       className={cn("u-mt-auto u-flex u-flex-col u-gap-2 u-p-2", className)}
@@ -104,7 +104,7 @@ DrawerFooter.displayName = "DrawerFooter";
 
 const DrawerTitle = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title>
+  React.ComponentPropsWithoutRef<"h2">
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Title
     className={cn(
@@ -119,7 +119,7 @@ DrawerTitle.displayName = DrawerPrimitive.Title.displayName;
 
 const DrawerDescription = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description>
+  React.ComponentPropsWithoutRef<"p">
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Description
     className={cn("u-text-sm u-text-muted-foreground", className)}
