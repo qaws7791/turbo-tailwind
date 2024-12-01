@@ -1,4 +1,7 @@
-import { uploadProfileAvatar } from "@/api/apis/profiles.api";
+import {
+  useUpdateProfile,
+  useUploadProfileAvatar,
+} from "@/feature/users/hooks/mutations";
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/avatar";
 import { Button } from "@repo/ui/button";
 import {
@@ -17,24 +20,31 @@ interface ProfileEditDialogProps {
     name: string;
     avatar: string;
   };
+  onClose: () => void;
 }
 
 export default function ProfileEditDialog({
   user,
+  onClose,
 }: ProfileEditDialogProps): JSX.Element {
   const [avatar, setAvatar] = useState<string | null>(null);
   const avatarInputRef = useRef<HTMLInputElement>(null);
+  const uploadProfileAvatar = useUploadProfileAvatar();
+  const updateProfile = useUpdateProfile();
+
   const handleChooseAvatar = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
     if (file) {
-      try {
-        const data = await uploadProfileAvatar({ file });
-        setAvatar(data.path);
-      } catch (error) {
-        console.error("Failed to upload avatar", error);
-      }
+      uploadProfileAvatar.mutate(
+        { file },
+        {
+          onSuccess: (data) => {
+            setAvatar(data.path);
+          },
+        }
+      );
     }
   };
 
@@ -43,18 +53,14 @@ export default function ProfileEditDialog({
     if (avatar) {
       body.avatar_url = avatar;
     }
-    try {
-      await fetch("/api/profiles", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-    } catch (error) {
-      console.error("Failed to save profile", error);
-    }
+    updateProfile.mutate(body, {
+      onSuccess: () => {
+        onClose();
+      },
+    });
   };
+
+  const isAnyPending = uploadProfileAvatar.isPending || updateProfile.isPending;
 
   return (
     <DialogContent>
@@ -66,7 +72,11 @@ export default function ProfileEditDialog({
       </DialogHeader>
       <div className="flex gap-4 py-4 flex-col items-center">
         <Avatar className="w-24 h-24">
-          <AvatarImage alt={user.name} src={avatar || user.avatar} />
+          <AvatarImage
+            alt={user.name}
+            src={avatar || user.avatar}
+            className="object-cover"
+          />
           <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
         </Avatar>
 
@@ -80,19 +90,24 @@ export default function ProfileEditDialog({
           onChange={handleChooseAvatar}
           ref={avatarInputRef}
         />
-        <Button onClick={() => avatarInputRef.current?.click()}>
-          프로필 사진 선택하기
+        <Button
+          onClick={() => avatarInputRef.current?.click()}
+          disabled={isAnyPending}
+        >
+          {uploadProfileAvatar.isPending ? "업로드 중..." : "프로필 사진 변경"}
         </Button>
       </div>
       <DialogFooter>
         <DialogClose asChild>
           <Button variant="ghost">취소</Button>
         </DialogClose>
-        <DialogClose asChild>
-          <Button type="button" onClick={handleSaveProfile}>
-            저장하기
-          </Button>
-        </DialogClose>
+        <Button
+          type="button"
+          onClick={handleSaveProfile}
+          disabled={updateProfile.isPending}
+        >
+          저장하기
+        </Button>
       </DialogFooter>
     </DialogContent>
   );
