@@ -47,6 +47,7 @@ type DrawerContentProps = React.ComponentPropsWithoutRef<
   typeof DrawerPrimitive.Content
 > & {
   direction?: "left" | "right";
+  children: React.ReactNode;
 };
 
 const DrawerContent = React.forwardRef<
