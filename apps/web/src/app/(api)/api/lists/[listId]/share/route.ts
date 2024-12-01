@@ -3,7 +3,7 @@ import {
   updateListPublicStateSchema,
 } from "@/lib/supabase/server/lists/lists.mutations";
 import { HttpErrorResponse, HttpSuccessResponse } from "@/server/utils/http";
-import { expirePath } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 export async function POST(
   request: Request,
@@ -25,7 +25,7 @@ export async function POST(
   try {
     const res = await updateListPublicState(listId, input.data.type);
     const path = `/share/${listId}`;
-    expirePath(path);
+    revalidatePath(path);
     return new HttpSuccessResponse(res);
   } catch (error) {
     const errorMessage =
