@@ -44,8 +44,8 @@ export default function AddLinkButton({ listId }: AddLinkButtonProps) {
       { listId, url: data.url },
       {
         onSuccess: () => {
-          toast.success("성공적으로 링크를 추가했습니다.");
           setOpen(false);
+          toast.success("성공적으로 링크를 추가했습니다.");
           reset();
         },
         onError: () => {
@@ -87,10 +87,10 @@ export default function AddLinkButton({ listId }: AddLinkButtonProps) {
               disabled={formState.isSubmitting || !formState.isValid}
               type="submit"
             >
-              {formState.isSubmitting ? (
+              {createLink.isPending ? (
                 <Loader2Icon className="animate-spin" />
               ) : null}
-              {formState.isSubmitting ? "추가 중..." : "링크 추가"}
+              {createLink.isPending ? "추가 중..." : "링크 추가"}
             </Button>
           </DialogFooter>
         </form>
