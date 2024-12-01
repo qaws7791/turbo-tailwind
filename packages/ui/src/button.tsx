@@ -46,14 +46,16 @@ export type ButtonProps = React.ComponentPropsWithRef<"button"> &
   RadixUISlot;
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild, ...props }, ref) => {
+  ({ className, variant, size, asChild, children, ...props }, ref) => {
     const Component = asChild ? Slot : "button";
     return (
       <Component
         className={cn(buttonStyles({ variant, size, className }))}
         ref={ref}
         {...props}
-      />
+      >
+        <>{children}</>
+      </Component>
     );
   }
 );
