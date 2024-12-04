@@ -1,4 +1,5 @@
 import { Button } from "@repo/ui/button";
+import Link from "next/link";
 
 export default function LandingPage(): JSX.Element {
   return (
@@ -10,8 +11,8 @@ export default function LandingPage(): JSX.Element {
         </p>
 
         <div className="mt-10">
-          <Button size="lg" className="mx-auto">
-            지금 시작하기
+          <Button size="lg" className="mx-auto max-w-50" asChild>
+            <Link href="/login">지금 시작하기</Link>
           </Button>
         </div>
       </section>
