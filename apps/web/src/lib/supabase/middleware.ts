@@ -31,8 +31,14 @@ export async function updateSession(request: NextRequest) {
     },
   });
 
-  // refreshing the auth token
-  await supabase.auth.getUser();
+  const isPrivateRoute = request.nextUrl.pathname.startsWith("/app");
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (isPrivateRoute && !user) {
+    supabaseResponse = NextResponse.redirect(new URL("/login", request.url));
+  }
 
   return supabaseResponse;
 }
