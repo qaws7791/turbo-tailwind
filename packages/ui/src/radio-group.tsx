@@ -22,7 +22,7 @@ RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
 
 const radioGroupItemStyles = tv({
   extend: focusVisibleRing,
-  base: "u-aspect-square u-h-5 u-w-5 u-rounded-full u-border u-border-gray-300 u-bg-transparent disabled:u-cursor-not-allowed disabled:u-opacity-50  data-[state='checked']:u-border-blue-500 data-[state='checked']:u-border-transparent u-group u-border-2 border-gray-200 u-m-2.5 u-box-border u-relative u-flex u-items-center u-justify-center",
+  base: "u-aspect-square u-h-5 u-w-5 u-rounded-full u-border u-border-gray-300 u-bg-transparent disabled:u-cursor-not-allowed disabled:u-opacity-50 data-[state='checked']:u-border-blue-500 u-group u-border-2 border-gray-200 u-m-2.5 u-box-border u-relative u-flex u-items-center u-justify-center",
 });
 
 const RadioGroupItem = React.forwardRef<
@@ -36,9 +36,9 @@ const RadioGroupItem = React.forwardRef<
       {...props}
     >
       <RadioGroupPrimitive.Indicator className="u-flex u-items-center u-justify-center">
-        <div className="u-h-2.5 u-w-2.5 u-rounded-full u-bg-blue-500 " />
+        <div className="u-h-2.5 u-w-2.5 u-rounded-full u-bg-blue-500 u-animate-in u-duration-200 u-zoom-in-50 u-fade-in" />
       </RadioGroupPrimitive.Indicator>
-      <div className="u-absolute u-w-10 u-h-10 u-rounded-full group-focus:u-bg-gray-400/10 group-hover:u-bg-gray-400/10" />
+      <div className="u-absolute u-w-10 u-h-10 u-rounded-full" />
     </RadioGroupPrimitive.Item>
   );
 });
