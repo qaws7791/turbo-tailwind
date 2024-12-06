@@ -1,4 +1,3 @@
-import { Button } from "@repo/ui/button";
 import { Checkbox, CheckboxState } from "@repo/ui/checkbox";
 import { Label } from "@repo/ui/label";
 import { Meta, StoryObj } from "@storybook/react";
@@ -32,33 +31,54 @@ export const Default: Story = {
 };
 
 function IndeterminateCheckbox() {
-  const [checked, setChecked] = useState<CheckboxState>(false);
+  const [checked, setApple] = useState<CheckboxState[]>([false, false, false]);
 
-  console.log("checked", checked);
+  const fruitsChecked: CheckboxState = checked.every(Boolean)
+    ? true
+    : checked.some(Boolean)
+      ? "indeterminate"
+      : false;
+
+  const handleFruitsChange = (checked: CheckboxState) => {
+    if (checked === "indeterminate") {
+      setApple([true, true, true]);
+      return;
+    }
+    if (checked) {
+      setApple([true, true, true]);
+      return;
+    }
+    setApple([false, false, false]);
+  };
+
   return (
     <div className="flex flex-col">
-      <div className="flex items-center">
-        <Checkbox
-          id="checkbox3"
-          checked={checked}
-          onCheckedChange={setChecked}
-        />
-        <Label htmlFor="checkbox3">Checkbox</Label>
+      <div className="flex flex-col">
+        <div className="flex items-center">
+          <Checkbox
+            checked={fruitsChecked}
+            onCheckedChange={handleFruitsChange}
+          />
+          <Label>Fruits</Label>
+        </div>
+        <div className="flex gap-2 flex-col ml-4">
+          {["Apple", "Banana", "Cherry"].map((item, i) => (
+            <div key={item} className="flex items-center">
+              <Checkbox
+                checked={checked[i]}
+                onCheckedChange={(checked) => {
+                  setApple((prev) => {
+                    const next = [...prev];
+                    next[i] = checked;
+                    return next;
+                  });
+                }}
+              />
+              <Label>{item}</Label>
+            </div>
+          ))}
+        </div>
       </div>
-      <Button
-        onClick={() => {
-          console.log(checked);
-          setChecked((prevIsChecked) =>
-            prevIsChecked === false
-              ? "indeterminate"
-              : prevIsChecked === "indeterminate"
-                ? true
-                : false
-          );
-        }}
-      >
-        Change state
-      </Button>
     </div>
   );
 }
