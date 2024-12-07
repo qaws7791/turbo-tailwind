@@ -12,6 +12,13 @@ const meta = {
     placeholder: "Type something...",
     className: "w-80",
   },
+  argTypes: {
+    resize: {
+      control: {
+        type: "boolean",
+      },
+    },
+  },
   tags: ["autodocs"],
 } satisfies Meta<typeof Textarea>;
 
@@ -33,4 +40,8 @@ export const Invalid: Story = {
       <ErrorMessage>에러 메시지</ErrorMessage>
     </div>
   ),
+};
+
+export const NoResize: Story = {
+  render: (args) => <Textarea {...args} resize={false} />,
 };
