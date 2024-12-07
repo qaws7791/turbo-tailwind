@@ -18,6 +18,10 @@ jobs:
         uses: pnpm/action-setup@v4
       - name: Install dependencies
         run: pnpm install
+
+      - name: 스토리북에서 사용하는 내부 패키지만 선택적으로 빌드
+        run: pnpm build:packages
+
       - name: Run Chromatic
         uses: chromaui/action@latest
         with:
