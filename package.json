@@ -7,7 +7,7 @@
     "type-check": "turbo type-check",
     "clean": "turbo clean",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "build:packages": "turbo build --scope packages/*"
+    "build:packages": "turbo build --filter=./packages/*"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
