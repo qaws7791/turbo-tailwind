@@ -44,3 +44,15 @@ This Turborepo has some additional tools already setup for you:
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for code formatting
+
+### Storybook 배포
+
+1. chromatic 계정 생성 및 리포지토리 연결
+2. 스토리북 앱에 `pnpm add -D chromatic` 설치
+3. 앱 루트 디렉토리에서 `npx chromatic --project-token={PROJECT_TOKEN}` 실행하여 배포
+
+https://www.chromatic.com/docs/github-actions/#run-chromatic-on-monorepos
+https://www.chromatic.com/docs/github-actions/
+https://turbo.build/repo/docs/guides/tools/storybook
+https://turbo.build/repo/docs/reference/run#--filter-string
+https://pnpm.io/continuous-integration#github-actions
