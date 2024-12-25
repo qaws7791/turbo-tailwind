@@ -8,9 +8,11 @@ import {
 } from "@repo/ui/dropdown-menu";
 import { IconButton } from "@repo/ui/icon-button";
 import { cn } from "@repo/ui/utils";
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, PaginationState } from "@tanstack/react-table";
+import { useDeferredValue } from "react";
+import { useSearchParams } from "react-router";
 import DynamicTable from "../../../components/dynamic-table";
-import { PRODUCTS } from "../../../mocks/data/products";
+import { useFetchProducts } from "../../../features/products/hooks/queries";
 
 export type Product = {
   id: number;
@@ -136,6 +138,47 @@ export const columns: ColumnDef<Product>[] = [
 ];
 
 export default function ProductsTable() {
-  const data = PRODUCTS;
-  return <DynamicTable data={data} columns={columns} />;
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const pageIndex = Number(searchParams.get("page") ?? 1) - 1;
+  const pageSize = Number(searchParams.get("limit") ?? 10);
+  const setPagination = (
+    updaterOrValue:
+      | PaginationState
+      | ((prev: PaginationState) => PaginationState)
+  ) => {
+    const pagination =
+      typeof updaterOrValue === "function"
+        ? updaterOrValue({
+            pageIndex,
+            pageSize,
+          })
+        : updaterOrValue;
+    setSearchParams({
+      page: String(pagination.pageIndex + 1),
+      limit: String(pagination.pageSize),
+    });
+  };
+
+  const deferredPagination = useDeferredValue({
+    pageIndex,
+    pageSize,
+  });
+  const { data } = useFetchProducts({
+    page: deferredPagination.pageIndex + 1,
+    limit: deferredPagination.pageSize,
+  });
+
+  return (
+    <DynamicTable
+      data={data.items}
+      columns={columns}
+      pagination={{
+        pageIndex: data.currentPage - 1,
+        pageSize: data.itemsPerPage,
+        rowCount: data.totalItems,
+      }}
+      onChangePagination={setPagination}
+    />
+  );
 }

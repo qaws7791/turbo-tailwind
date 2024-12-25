@@ -1,4 +1,5 @@
 import { Button } from "@repo/ui/button";
+import { Suspense } from "react";
 import { Link } from "react-router";
 import ProductsTable from "./products-table";
 
@@ -18,7 +19,9 @@ export default function ProductsPage() {
           </Button>
         </header>
       </div>
-      <ProductsTable />
+      <Suspense fallback={<div>Loading...</div>}>
+        <ProductsTable />
+      </Suspense>
     </div>
   );
 }
