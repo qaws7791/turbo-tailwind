@@ -15,6 +15,8 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  OnChangeFn,
+  PaginationState,
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
@@ -24,11 +26,15 @@ import { DynamicTablePagination } from "./dynamic-table-pagination";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  pagination?: PaginationState & { rowCount: number };
+  onChangePagination?: OnChangeFn<PaginationState>;
 }
 
 export default function DynamicTable<TData, TValue>({
   columns,
   data,
+  pagination,
+  onChangePagination,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -37,14 +43,23 @@ export default function DynamicTable<TData, TValue>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: pagination ? getPaginationRowModel() : undefined,
+    onPaginationChange: onChangePagination,
+    manualPagination: pagination ? true : false,
+    rowCount: pagination?.rowCount,
     state: {
       sorting,
       columnFilters,
+      pagination: pagination
+        ? {
+            pageIndex: pagination.pageIndex,
+            pageSize: pagination.pageSize,
+          }
+        : undefined,
     },
   });
 

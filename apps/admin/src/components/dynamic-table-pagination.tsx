@@ -26,9 +26,11 @@ export function DynamicTablePagination<TData>({
     table.getState().pagination.pageIndex *
       table.getState().pagination.pageSize +
     1;
-  const endItemIndex =
+  const endItemIndex = Math.min(
     (table.getState().pagination.pageIndex + 1) *
-    table.getState().pagination.pageSize;
+      table.getState().pagination.pageSize,
+    table.getRowCount()
+  );
   return (
     <div className="flex items-center justify-between px-2">
       <div className="flex items-center space-x-6 lg:space-x-8">
