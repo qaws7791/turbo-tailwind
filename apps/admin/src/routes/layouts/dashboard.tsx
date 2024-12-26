@@ -2,6 +2,7 @@ import {
   Bars3Icon,
   HomeIcon,
   SquaresPlusIcon,
+  TagIcon,
   TicketIcon,
   UsersIcon,
   XMarkIcon,
@@ -25,6 +26,11 @@ const PAGES = [
     name: "홈",
     path: "/dashboard",
     icon: <HomeIcon className="size-5" />,
+  },
+  {
+    name: "카테고리 관리",
+    path: "/dashboard/categories",
+    icon: <TagIcon className="size-5" />,
   },
   {
     name: "상품 관리",

@@ -18,6 +18,7 @@ function App() {
 
         <Route path="dashboard" element={<DashboardLayout />}>
           <Route index element={<DashboardPage />} />
+          <Route path="categories" element={<CategoriesPage />} />
           <Route path="products" element={<ProductsPage />} />
           <Route path="orders" element={<h1>Orders</h1>} />
           <Route path="customers" element={<h1>Customers</h1>} />
