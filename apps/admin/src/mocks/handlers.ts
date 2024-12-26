@@ -1,4 +1,6 @@
 import { http, HttpResponse } from "msw";
+import { Category } from "../api/models/category";
+import { CATEGORIES } from "./data/categories";
 import { PRODUCTS } from "./data/products";
 
 const API_URL = "http://localhost:4000/api";
@@ -22,6 +24,16 @@ export const handlers = [
         totalPages: Math.ceil(PRODUCTS.length / limit),
         nextPage: page < Math.ceil(PRODUCTS.length / limit) ? page + 1 : null,
         previousPage: page > 1 ? page - 1 : null,
+      },
+    });
+  }),
+
+  http.get(`${API_URL}/categories`, () => {
+    const categories: Category[] = CATEGORIES;
+
+    return HttpResponse.json({
+      data: {
+        items: categories,
       },
     });
   }),
