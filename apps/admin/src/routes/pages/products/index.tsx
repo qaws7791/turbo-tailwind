@@ -13,7 +13,7 @@ export default function ProductsPage() {
             상품 목록을 조회하고 상품을 추가, 수정, 삭제할 수 있습니다.
           </p>
           <Button asChild>
-            <Link to="/products/new" className="btn btn-primary">
+            <Link to="/dashboard/products/new" className="btn btn-primary">
               상품 추가
             </Link>
           </Button>
