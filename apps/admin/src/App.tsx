@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import DashboardLayout from "./routes/layouts/dashboard";
 import PublicOnlyLayout from "./routes/layouts/public-only";
+import AddProductPage from "./routes/pages/add-product";
+import CategoriesPage from "./routes/pages/categories";
 import DashboardPage from "./routes/pages/dashboard";
 import LoginPage from "./routes/pages/login";
 import ProductsPage from "./routes/pages/products";
@@ -20,6 +22,7 @@ function App() {
           <Route index element={<DashboardPage />} />
           <Route path="categories" element={<CategoriesPage />} />
           <Route path="products" element={<ProductsPage />} />
+          <Route path="products/new" element={<AddProductPage />} />
           <Route path="orders" element={<h1>Orders</h1>} />
           <Route path="customers" element={<h1>Customers</h1>} />
         </Route>
